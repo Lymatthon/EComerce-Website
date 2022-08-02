@@ -35,8 +35,8 @@
                     <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Sign in/Sign up
                         <span class="caret"></span></button>
                     <ul class="dropdown-menu">
-                        <li ><a href="#">Sign in</a></li>
-                        <li><a href="/register">Sign up</a></li>
+                        <li><a href="/littleshop/login">Sign in</a></li>
+                        <li><a href="/littleshop/register">Sign up</a></li>
                     </ul>
                 </div>                
             </div>

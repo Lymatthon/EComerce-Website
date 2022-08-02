@@ -16,11 +16,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "account")
-public class Account implements Serializable {
+public class Account extends Customer implements Serializable {
 //extends Customer 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +29,8 @@ public class Account implements Serializable {
 
     @Column(unique = true, length = 100)
     private String email;
+    
+    @Column(nullable = false, length = 100)
     private String password;
 
     @Column(nullable = false)
@@ -42,6 +45,9 @@ public class Account implements Serializable {
                     name = "role_id",
                     referencedColumnName = "roleId"))
     private Set<RoleEntity> userRoles;
+    
+    @OneToMany(mappedBy = "account", fetch = FetchType.LAZY)
+    private Set<OrderEntity> orders;
 
     public Account() {
     }

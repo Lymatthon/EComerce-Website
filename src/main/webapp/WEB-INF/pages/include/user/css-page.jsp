@@ -13,9 +13,3 @@
       href="<c:url value="/resources/styles/main_styles.css"/>">
 <link rel="stylesheet" type="text/css" 
       href="<c:url value="/resources/styles/responsive.css"/>">
-
-<!-- Font Register -->
-<!--<link rel="stylesheet" href="<c:url value="/resources/register/fonts/material-icon/css/material-design-iconic-font.min.css" />"> -->
-
-<!-- Main css Register-->
-<!--<link rel="stylesheet" href="<c:url value="/resources/register/css/style.css"/>"> -->
