@@ -6,12 +6,12 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Little Closet</title>
-        <jsp:include page="include/user/css-page.jsp" />
+        <jsp:include page="/include/user/css-page.jsp" />
     </head>
 
     <body>
         <!-- Top menu --> 
-        <jsp:include page="include/user/menu.jsp"/>
+        <jsp:include page="/include/user/menu.jsp"/>
 
         <div class="super_container">
             <jsp:include page="include/user/header.jsp"/>

@@ -3,7 +3,7 @@
     <div class="header_overlay"></div>
     <div class="header_content d-flex flex-row align-items-center justify-content-start">
         <div class="logo">
-            <a href="#">
+            <a href="/littleshop/home">
                 <div class="d-flex flex-row align-items-center justify-content-start">
                     <div><img src="<c:url value="/resources/images/logo_1.png"/>" alt=""></div>
                     <div>Little Closet</div>
@@ -13,11 +13,11 @@
         <div class="hamburger"><i class="fa fa-bars" aria-hidden="true"></i></div>
         <nav class="main_nav">
             <ul class="d-flex flex-row align-items-start justify-content-start">
-                <li class="active"><a href="#">Women</a></li>
-                <li><a href="#">Men</a></li>
-                <li><a href="#">Kids</a></li>
-                <li><a href="#">Home Deco</a></li>
-                <li><a href="#">Contact</a></li>
+                <c:forEach var="cate" items="${cates}">                
+                
+                <li class="active"><a href="category/${cate.categoryId}">${cate.categoryName}</a></li>
+                </c:forEach>
+                <li class="active"><a href="product/">All Product</a></li>
             </ul>
         </nav>
         <div class="header_right d-flex flex-row align-items-center justify-content-start ml-auto">

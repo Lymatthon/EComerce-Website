@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -23,20 +24,31 @@
             <!-- <img src="images/signup-bg.jpg" alt=""> -->
             <div class="container">
                 <div class="signup-content">
-                    <form method="POST" id="signup-form" class="signup-form">
+                    <c:url value="/register" var="action"/>
+                    
+                    <form:form method="POST" action="${action}" modelAttribute="user" id="signup-form" class="signup-form">
                         <h2 class="form-title">Create account</h2>
                         <div class="form-group">
-                            <input type="text" class="form-input" name="name" id="name" placeholder="Your Name"/>
+                            <form:input class="form-input" path="customerName" id="name" placeholder="Name"/>
                         </div>
                         <div class="form-group">
-                            <input type="email" class="form-input" name="email" id="email" placeholder="Your Email"/>
+                            <form:input  class="form-input" path="email" id="email" placeholder="Email"/>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-input" name="password" id="password" placeholder="Password"/>
+                            <form:input  class="form-input" path="address" id="address" placeholder="Address"/>
+                        </div>
+                        <div class="form-group">
+                            <form:input  class="form-input" path="phone" id="phone" placeholder="Phone Number"/>
+                        </div>
+                        <div class="form-group">                            
+                            <form:radiobuttons class="form-input" path="gender" id="gender" items="${genderMap}"/>                                                        
+                        </div>
+                        <div class="form-group">
+                            <form:input class="form-input" path="password" id="password" placeholder="Password"/>
                             <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-input" name="re_password" id="re_password" placeholder="Repeat your password"/>
+                            <form:input class="form-input" path="confirmPassword" id="confirmPassword" placeholder="Repeat your password"/>
                         </div>
                         <div class="form-group">
                             <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
@@ -45,7 +57,7 @@
                         <div class="form-group">
                             <input type="submit" name="submit" id="submit" class="form-submit" value="Sign up"/>
                         </div>
-                    </form>
+                    </form:form>
                     <p class="loginhere">
                         Have already an account ? <a href="/littleshop/login" class="loginhere-link">Login here</a>
                     </p>

@@ -1,10 +1,7 @@
 package com.mycompany.spring_mvc_project_final.entities;
 
-import com.mycompany.spring_mvc_project_final.enums.Gender;
 import java.io.Serializable;
 import javax.persistence.Column;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
@@ -20,8 +17,7 @@ public class Customer implements Serializable {
     private String phone;
 
     @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private Gender gender;
+    private String gender;
 
     public String getCustomerName() {
         return customerName;
@@ -47,13 +43,15 @@ public class Customer implements Serializable {
         this.phone = phone;
     }
 
-    public Gender getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(Gender gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
+
+
     
 
 }

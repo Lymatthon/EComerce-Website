@@ -25,7 +25,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "orderentity")
-public class OrderEntity implements Serializable {
+public class OrderEntity extends Customer implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

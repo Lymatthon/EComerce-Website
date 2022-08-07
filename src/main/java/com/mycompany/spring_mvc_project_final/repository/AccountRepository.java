@@ -15,4 +15,5 @@ public interface AccountRepository extends CrudRepository<Account, Long> {
 
     Account findByEmailLikeAndStatusLike(String email,
             UserStatus status);
+ 
 }

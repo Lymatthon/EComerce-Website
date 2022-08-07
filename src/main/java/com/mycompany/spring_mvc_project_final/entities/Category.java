@@ -24,7 +24,7 @@ public class Category implements Serializable {
     @Column(nullable = true, length = 100)
     private String description;
     
-    @OneToMany(mappedBy = "category",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "category",fetch = FetchType.EAGER)
     private Set<Product> products;
 
     public long getCategoryId() {

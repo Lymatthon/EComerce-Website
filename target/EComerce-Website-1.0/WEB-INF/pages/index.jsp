@@ -21,7 +21,7 @@
                 <jsp:include page="include/user/slider.jsp"/>
                 
                 <!-- Products -->                                           
-                <jsp:include page="include/user/product-list.jsp"/>
+                <jsp:include page="include/user/product-list-all.jsp"/>
 
                 <!-- Footer --> 
                 <jsp:include page="include/user/footer-page.jsp"/>

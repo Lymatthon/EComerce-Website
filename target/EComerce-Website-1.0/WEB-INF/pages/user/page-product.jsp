@@ -6,27 +6,27 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Little Closet</title>
-        <jsp:include page="include/user/css-page.jsp" />
+        <jsp:include page="/WEB-INF/pages/include/user/css-page.jsp" />
     </head>
 
     <body>
         <!-- Top menu --> 
-        <jsp:include page="include/user/menu.jsp"/>
+        <jsp:include page="/WEB-INF/pages/include/user/menu.jsp"/>
 
         <div class="super_container">
-            <jsp:include page="include/user/header.jsp"/>
+            <jsp:include page="/WEB-INF/pages/include/user/header.jsp"/>
             <div class="super_container_inner">
                 <div class="super_overlay"></div>
 
                 <!-- Products -->                                           
-                <jsp:include page="include/user/product.jsp"/>
+                <jsp:include page="/WEB-INF/pages/include/user/product-list.jsp"/>
 
                 <!-- Footer --> 
-                <jsp:include page="include/user/footer-page.jsp"/>
+                <jsp:include page="/WEB-INF/pages/include/user/footer-page.jsp"/>
             </div>
         </div>
 
-        <jsp:include page="include/user/js-page.jsp"/>
+        <jsp:include page="/WEB-INF/pages/include/user/js-page.jsp"/>
     </body>
 
 </html>

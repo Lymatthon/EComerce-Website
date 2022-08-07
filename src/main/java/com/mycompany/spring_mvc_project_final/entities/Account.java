@@ -1,4 +1,3 @@
-
 package com.mycompany.spring_mvc_project_final.entities;
 
 import com.mycompany.spring_mvc_project_final.enums.UserStatus;
@@ -18,20 +17,25 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "account")
 public class Account extends Customer implements Serializable {
 //extends Customer 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(unique = true, length = 100)
     private String email;
-    
+
     @Column(nullable = false, length = 100)
     private String password;
+
+    @Transient
+    private String confirmPassword;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
@@ -46,6 +50,8 @@ public class Account extends Customer implements Serializable {
                     referencedColumnName = "roleId"))
     private Set<RoleEntity> userRoles;
     
+
+
     @OneToMany(mappedBy = "account", fetch = FetchType.LAZY)
     private Set<OrderEntity> orders;
 
@@ -90,6 +96,22 @@ public class Account extends Customer implements Serializable {
 
     public void setStatus(UserStatus status) {
         this.status = status;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
+
+    public Set<OrderEntity> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<OrderEntity> orders) {
+        this.orders = orders;
     }
 
 }

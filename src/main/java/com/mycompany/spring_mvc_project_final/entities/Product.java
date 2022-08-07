@@ -1,6 +1,7 @@
 package com.mycompany.spring_mvc_project_final.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "product")
@@ -29,9 +33,11 @@ public class Product implements Serializable {
 
     @Column(nullable = true, length = 100)
     private String description;
-
+    
     @Column(nullable = false)
-    private boolean status;
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "MM/dd/yyyy")
+    private Date dateCreate;
 
     @ManyToOne
     @JoinColumn(name = "categoryId")
@@ -41,10 +47,10 @@ public class Product implements Serializable {
     @JoinColumn(name = "imageId")
     Image image;
 
-    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
     private Set<ProductDetail> pDetails;
 
-    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
     private Set<OrderDetail> orderDetails;
 
     public long getProductId() {
@@ -79,14 +85,6 @@ public class Product implements Serializable {
         this.description = description;
     }
 
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
-
     public Category getCategory() {
         return category;
     }
@@ -117,6 +115,14 @@ public class Product implements Serializable {
 
     public void setOrderDetails(Set<OrderDetail> orderDetails) {
         this.orderDetails = orderDetails;
+    }
+
+    public Date getDateCreate() {
+        return dateCreate;
+    }
+
+    public void setDateCreate(Date dateCreate) {
+        this.dateCreate = dateCreate;
     }
 
 }
