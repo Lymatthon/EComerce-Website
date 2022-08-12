@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!-- Products -->
 
 <div class="products">
@@ -31,9 +32,9 @@
                             <div class="product_info d-flex flex-row align-items-start justify-content-start">
                                 <div>
                                     <div>
-                                        <div class="product_name"><a href="product.html">${p.productName}</a></div>
+                                        <div class="product_name"><a href="/littleshop/product/details/${p.productId}">${p.productName}</a></div>
 
-                                        <div class="product_category">In <a href="list-by-category/${p.category.categoryId}"><c:out value="${p.category.categoryName}" /></a></div>
+                                        <div class="product_category">In <a href="/littleshop/product/category/${p.category.categoryId}${p.category.categoryName}"><c:out value="${p.category.categoryName}" /></a></div>
 
                                     </div>
                                 </div>

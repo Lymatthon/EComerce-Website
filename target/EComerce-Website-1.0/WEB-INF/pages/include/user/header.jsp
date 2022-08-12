@@ -15,9 +15,9 @@
             <ul class="d-flex flex-row align-items-start justify-content-start">
                 <c:forEach var="cate" items="${cates}">                
                 
-                <li class="active"><a href="category/${cate.categoryId}">${cate.categoryName}</a></li>
+                <li class="active"><a href="/littleshop/product/category/${cate.categoryId}">${cate.categoryName}</a></li>
                 </c:forEach>
-                <li class="active"><a href="product/">All Product</a></li>
+                <li class="active"><a href="/littleshop/product/best-selling">Best-Selling</a></li>
             </ul>
         </nav>
         <div class="header_right d-flex flex-row align-items-center justify-content-start ml-auto">

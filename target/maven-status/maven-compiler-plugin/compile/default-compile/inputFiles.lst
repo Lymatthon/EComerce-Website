@@ -5,6 +5,7 @@ D:\DO AN 2022\EComerce-Website\src\main\java\com\mycompany\spring_mvc_project_fi
 D:\DO AN 2022\EComerce-Website\src\main\java\com\mycompany\spring_mvc_project_final\repository\AccountRepository.java
 D:\DO AN 2022\EComerce-Website\src\main\java\com\mycompany\spring_mvc_project_final\controller\UserController.java
 D:\DO AN 2022\EComerce-Website\src\main\java\com\mycompany\spring_mvc_project_final\configuration\MvcConfig.java
+D:\DO AN 2022\EComerce-Website\src\main\java\com\mycompany\spring_mvc_project_final\controller\MailController.java
 D:\DO AN 2022\EComerce-Website\src\main\java\com\mycompany\spring_mvc_project_final\entities\OrderDetail.java
 D:\DO AN 2022\EComerce-Website\src\main\java\com\mycompany\spring_mvc_project_final\entities\Account.java
 D:\DO AN 2022\EComerce-Website\src\main\java\com\mycompany\spring_mvc_project_final\configuration\AppInitializer.java
@@ -18,6 +19,7 @@ D:\DO AN 2022\EComerce-Website\src\main\java\com\mycompany\spring_mvc_project_fi
 D:\DO AN 2022\EComerce-Website\src\main\java\com\mycompany\spring_mvc_project_final\entities\Promotion.java
 D:\DO AN 2022\EComerce-Website\src\main\java\com\mycompany\spring_mvc_project_final\entities\Product.java
 D:\DO AN 2022\EComerce-Website\src\main\java\com\mycompany\spring_mvc_project_final\entities\Category.java
+D:\DO AN 2022\EComerce-Website\src\main\java\com\mycompany\spring_mvc_project_final\configuration\MailConfig.java
 D:\DO AN 2022\EComerce-Website\src\main\java\com\mycompany\spring_mvc_project_final\controller\AdminController.java
 D:\DO AN 2022\EComerce-Website\src\main\java\com\mycompany\spring_mvc_project_final\entities\Image.java
 D:\DO AN 2022\EComerce-Website\src\main\java\com\mycompany\spring_mvc_project_final\controller\ProductController.java

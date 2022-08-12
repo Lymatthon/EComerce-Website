@@ -17,27 +17,30 @@ import org.springframework.util.CollectionUtils;
 
 @Service
 public class CategoryService {
+
     @Autowired
     private CategoryRepository cateRepo;
-    
+
     @Transactional
     public List<Category> getCategories() {
         List<Category> categories = (List<Category>) cateRepo.findAll();
-        
+
         if (!CollectionUtils.isEmpty(categories)) {
-            for(Category c: categories){
-            Hibernate.initialize(c.getProducts());
-        }
+            for (Category c : categories) {
+                Hibernate.initialize(c.getProducts());
+            }
             return categories;
         }
         return new ArrayList<>();
     }
-    public Category getCategoryById(Long categoryId){
+
+    @Transactional
+    public Category getCategoryById(Long categoryId) {
         Optional<Category> cate = cateRepo.findById(categoryId);
-        if(cate.isPresent()){
+        if (cate.isPresent()) {
             return cate.get();
         }
         return new Category();
-        
+
     }
 }

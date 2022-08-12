@@ -4,7 +4,7 @@
 
 <div class="products">
     <div class="container">
-        <div class="row">
+ <!--       <div class="row">
             <div class="col-lg-6 offset-lg-3">
                 <div class="section_title text-center">Popular on Little Closet</div>
             </div>
@@ -14,12 +14,12 @@
                 <div class="page_nav">
                     <ul class="d-flex flex-row align-items-start justify-content-center">
                         <c:forEach var="cate" items="${cates}">
-                            <li class="active"><a href="category/${cate.categoryId}">${cate.categoryName}</a></li>
+                            <li class="active"><a href="/littleshop/product/category/${cate.categoryId}">${cate.categoryName}</a></li>
                         </c:forEach>
                     </ul>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="row products_row">
             <c:forEach var="p" items="${products}">
 
@@ -32,9 +32,9 @@
                         <div class="product_info d-flex flex-row align-items-start justify-content-start">
                             <div>
                                 <div>
-                                    <div class="product_name"><a href="product.html">${p.productName}</a></div>
+                                    <div class="product_name"><a href="/littleshop/product/details/${p.productId}">${p.productName}</a></div>
                                     
-                                    <div class="product_category">In <a href="category.html"><c:out value="${p.category.categoryId }" /></a></div>
+                                    <div class="product_category">In <a href="/littleshop/product/category/${p.category.categoryId}"><c:out value="${p.category.categoryName }" /></a></div>
                                     
                                 </div>
                             </div>

@@ -1,18 +1,23 @@
 package com.mycompany.spring_mvc_project_final.controller;
 
 import com.mycompany.spring_mvc_project_final.entities.Account;
+import com.mycompany.spring_mvc_project_final.entities.Image;
 import com.mycompany.spring_mvc_project_final.entities.Product;
 import com.mycompany.spring_mvc_project_final.entities.RoleEntity;
 import com.mycompany.spring_mvc_project_final.enums.Role;
 import com.mycompany.spring_mvc_project_final.enums.UserStatus;
 import com.mycompany.spring_mvc_project_final.repository.AccountRepository;
-import com.mycompany.spring_mvc_project_final.repository.CategoryRepository;
 import com.mycompany.spring_mvc_project_final.service.ProductService;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -20,15 +25,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 @Controller
 public class HomeController {
 
     @Autowired
     ProductService productService;
-
-    @Autowired
-    CategoryRepository cateRpo;
 
     @Autowired
     AccountRepository accountRepo;
@@ -41,18 +44,10 @@ public class HomeController {
         List<Product> listProduct = productService.getProducts();
         List<Product> listNewestProduct = productService.getNewestProduct();
         double minPrice = listNewestProduct.get(0).getPrice();
-        
-        for(Product p: listNewestProduct){
-            if(p.getPrice()<minPrice){
-                minPrice = p.getPrice();
-            }
-        }
-        System.out.println(minPrice);
-        
         model.addAttribute("listProduct", listProduct);
         model.addAttribute("listNewestProduct", listNewestProduct);
         model.addAttribute("minPrice", minPrice);
-        
+        // sp moi nhat + tat ca sp
 
         return "index";
     }
@@ -79,8 +74,7 @@ public class HomeController {
         user.setStatus(UserStatus.ACTIVE);
         user.setUserRoles(userRoles);
         String errMsg = "";
-        
-        
+
         if (!user.getPassword()
                 .isEmpty() || user.getPassword().equals(user.getConfirmPassword())) {
             String encryptedPassword = passwordEncoder.encode(user.getPassword());
@@ -94,11 +88,19 @@ public class HomeController {
             return "/register";
         }
     }
-    
-    
-    
-    
-    
+
+    @RequestMapping(value = "/viewUploadForm", method = RequestMethod.GET)
+    public String submitLink(Model model) {
+        model.addAttribute("productImages", new Image());
+        return "multipart/form-data";
+    }
+
+    @RequestMapping(value = "/uploadMultifile", method = RequestMethod.POST)
+    public String upload(@ModelAttribute("productImages") Image image, HttpServletRequest request, Model model) {
+
+        return this.doUpload(request, model, image);
+
+    }
 
     @RequestMapping(value = "/login")
     public String login() {
@@ -118,5 +120,39 @@ public class HomeController {
     @RequestMapping("/403")
     public String accessDenied(Model model) {
         return "403Page";
+    }
+
+    private String doUpload(HttpServletRequest request, Model model, Image image) {
+        String description = image.getDescription();
+        String uploadRootPath = request.getServletContext().getRealPath("/image");
+        File uploadRootDir = new File(uploadRootPath);
+        // Tạo thư mục gốc upload nếu nó không tồn tại.
+        if (!uploadRootDir.exists()) {
+            uploadRootDir.mkdirs();
+        }
+        CommonsMultipartFile[] fileDatas = image.getFileDatas();
+        List<File> uploadedFiles = new ArrayList<File>();
+        for (CommonsMultipartFile fileData : fileDatas) {
+            // Tên file gốc tại Client.
+            String name = fileData.getOriginalFilename();
+            if (name != null && name.length() > 0) {
+                try {
+                    // Tạo file tại Server.
+                    File serverFile = new File(uploadRootDir.getAbsolutePath() + File.separator + name);
+
+                    // Luồng ghi dữ liệu vào file trên Server.
+                    BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
+                    stream.write(fileData.getBytes());
+                    stream.close();
+                    //
+                    uploadedFiles.add(serverFile);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        model.addAttribute("description", description);
+        model.addAttribute("uploadedFiles", uploadedFiles);
+        return "multipart/viewFile";
     }
 }

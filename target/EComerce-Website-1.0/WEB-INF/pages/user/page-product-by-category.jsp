@@ -17,11 +17,9 @@
             <jsp:include page="/WEB-INF/pages/include/user/header.jsp"/>
             <div class="super_container_inner">
                 <div class="super_overlay"></div>
-                <!-- slider -->
-                <jsp:include page="/WEB-INF/pages/include/user/slider.jsp"/>
-                
+
                 <!-- Products -->                                           
-                <jsp:include page="/WEB-INF/pages/include/user/product-list.jsp"/>
+                <jsp:include page="/WEB-INF/pages/include/user/product-list-by-category.jsp"/>
 
                 <!-- Footer --> 
                 <jsp:include page="/WEB-INF/pages/include/user/footer-page.jsp"/>

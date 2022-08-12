@@ -27,7 +27,7 @@
                                                         <div class="product_tag d-flex flex-column align-items-center justify-content-center">
                                                             <div>
                                                                 <div>from</div>
-                                                                <div>$3<span>.99</span></div>
+                                                                <div>$ <c:out value="${minPrice}"/></div>
                                                             </div>
                                                         </div>
                                                         <div class="product_image"><img src="<c:url value="/resources/images/home_2.jpg"/>" alt=""></div>
@@ -35,13 +35,13 @@
                                                             <div class="product_info d-flex flex-row align-items-start justify-content-start">
                                                                 <div>
                                                                     <div>
-                                                                        <div class="product_name"><a href="product.html">Cool Clothing with Brown Stripes</a></div>
-                                                                        <div class="product_category">In <a href="category.html">Category</a></div>
+                                                                        <div class="product_name"><a href="/littleshop/product/details/${p.productId}">${p.productName}</a></div>
+                                                                        <div class="product_category">In <a href="/littleshop/product/category/${p.category.categoryId}"><c:out value="${p.category.categoryName}" /></a></div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="ml-auto text-right">
                                                                     <div class="rating_r rating_r_4 home_item_rating"><i></i><i></i><i></i><i></i><i></i></div>
-                                                                    <div class="product_price text-right">$3<span>.99</span></div>
+                                                                    <div class="product_price text-right">$${p.price}</span></div>
                                                                 </div>
                                                             </div>
                                                             <div class="product_buttons">

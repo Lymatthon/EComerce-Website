@@ -9,9 +9,11 @@ import com.mycompany.spring_mvc_project_final.entities.Product;
 import com.mycompany.spring_mvc_project_final.repository.ProductRepository;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 @Service
@@ -20,6 +22,7 @@ public class ProductService {
     @Autowired
     private ProductRepository productRepo;
 
+    @Transactional
     public List<Product> getProducts() {
         List<Product> products = (List<Product>) productRepo.findAll();
         if (!CollectionUtils.isEmpty(products)) {
@@ -34,6 +37,7 @@ public class ProductService {
 
     }
 
+    @Transactional
     public List<Product> getProductsByCategory(Category category) {
         List<Product> products = (List<Product>) productRepo.findProductByCategory(category);
         if (!CollectionUtils.isEmpty(products)) {
@@ -46,6 +50,7 @@ public class ProductService {
         return new ArrayList<>();
     }
 
+    @Transactional
     public List<Product> getNewestProduct() {
         List<Product> products = (List<Product>) productRepo.findNewestProduct();
         if (!CollectionUtils.isEmpty(products)) {
@@ -57,6 +62,29 @@ public class ProductService {
         }
 
         return new ArrayList<>();
+    }
+
+    @Transactional
+    public List<Product> getBestSellingProduct() {
+        List<Product> products = (List<Product>) productRepo.findBestSellingProduct();
+        if (!CollectionUtils.isEmpty(products)) {
+            for (Product c : products) {
+                Hibernate.initialize(c.getpDetails());
+                Hibernate.initialize(c.getOrderDetails());
+            }
+            return products;
+        }
+
+        return new ArrayList<>();
+    }
+    
+    @Transactional
+    public Product getProduct(Long pId) {
+        Optional<Product> product = productRepo.findById(pId);
+        if (product.isPresent()) {
+            return product.get();
+        }
+        return new Product();
     }
 
 }

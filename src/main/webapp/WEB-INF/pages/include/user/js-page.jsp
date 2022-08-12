@@ -12,7 +12,3 @@
 <script src="<c:url value="/resources/plugins/progressbar/progressbar.min.js"/>"></script>
 <script src="<c:url value="/resources/plugins/parallax-js-master/parallax.min.js"/>"></script>
 <script src="<c:url value="/resources/js/custom.js"/>"></script>
-
-<!-- JS Register 
-    <script src="<c:url value="/resources/register/vendor/jquery/jquery.min.js"/>"></script>
-    <script src="<c:url value="/resources/register/js/main.js"/>"></script> -->

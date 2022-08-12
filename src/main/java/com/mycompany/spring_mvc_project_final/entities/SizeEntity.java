@@ -21,7 +21,7 @@ public class SizeEntity implements Serializable{
     @Column(nullable = false, length = 20)
     private String productSize;
     
-    @OneToMany(mappedBy = "size",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "size",fetch = FetchType.EAGER)
     private Set<ProductDetail> pDetail;
 
     public long getSizeId() {

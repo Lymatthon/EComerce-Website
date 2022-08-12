@@ -6,7 +6,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Little Closet</title>
-        <jsp:include page="/WEB-INF/pages/include/user/css-page.jsp" />
+        <jsp:include page="/WEB-INF/pages/include/user/css-product-page.jsp" />
     </head>
 
     <body>
@@ -17,16 +17,15 @@
             <jsp:include page="/WEB-INF/pages/include/user/header.jsp"/>
             <div class="super_container_inner">
                 <div class="super_overlay"></div>
-
-                <!-- Products -->                                           
-                <jsp:include page="/WEB-INF/pages/include/user/product-list.jsp"/>
+                         
+                <jsp:include page="/WEB-INF/pages/include/user/product.jsp"/>
 
                 <!-- Footer --> 
                 <jsp:include page="/WEB-INF/pages/include/user/footer-page.jsp"/>
             </div>
         </div>
 
-        <jsp:include page="/WEB-INF/pages/include/user/js-page.jsp"/>
+        <jsp:include page="/WEB-INF/pages/include/user/js-product-page.jsp"/>
     </body>
 
 </html>

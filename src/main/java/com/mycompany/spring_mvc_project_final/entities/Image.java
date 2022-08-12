@@ -10,18 +10,27 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 @Entity
 @Table(name = "image")
-public class Image implements Serializable{
+public class Image implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long imageId;
-    
+
     @Column(nullable = false, length = 100)
     private String imageName;
-    
-    @OneToMany(mappedBy = "image",fetch = FetchType.LAZY)
+
+    @Column(nullable = false, length = 100)
+    private String description;
+
+    @Transient
+    private CommonsMultipartFile[] fileDatas;
+
+    @OneToMany(mappedBy = "image", fetch = FetchType.LAZY)
     private Set<Product> products;
 
     public long getImageId() {
@@ -47,6 +56,21 @@ public class Image implements Serializable{
     public void setProducts(Set<Product> products) {
         this.products = products;
     }
-    
-    
+
+    public CommonsMultipartFile[] getFileDatas() {
+        return fileDatas;
+    }
+
+    public void setFileDatas(CommonsMultipartFile[] fileDatas) {
+        this.fileDatas = fileDatas;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
 }
