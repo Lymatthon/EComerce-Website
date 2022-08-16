@@ -1,7 +1,7 @@
 package com.mycompany.spring_mvc_project_final.entities;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -25,7 +25,7 @@ public class Category implements Serializable {
     private String description;
     
     @OneToMany(mappedBy = "category",fetch = FetchType.EAGER)
-    private Set<Product> products;
+    private List<Product> products;
 
     public long getCategoryId() {
         return categoryId;
@@ -51,11 +51,11 @@ public class Category implements Serializable {
         this.description = description;
     }
 
-    public Set<Product> getProducts() {
+    public List<Product> getProducts() {
         return products;
     }
 
-    public void setProducts(Set<Product> products) {
+    public void setProducts(List<Product> products) {
         this.products = products;
     }
     

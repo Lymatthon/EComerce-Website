@@ -17,8 +17,8 @@
             
         </table>
         <div class="product_image">
-            <c:forEach items="${uploadedFiles}" var="image">
-                <img width="100"  height="100" src="<c:url value="/image/"/>${image.name}"/>
+            <c:forEach items="${uploadedFiles}" var="file">
+                <img width="100"  height="100" src="<c:url value="/resources/image/"/>${file.name}"/>
             </li>
         </c:forEach>
         </div>

@@ -1,4 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <header class="header">
     <div class="header_overlay"></div>
     <div class="header_content d-flex flex-row align-items-center justify-content-start">
@@ -23,10 +25,10 @@
         <div class="header_right d-flex flex-row align-items-center justify-content-start ml-auto">
             <!-- Search -->
             <div class="header_search">
-                <form action="#" id="header_search_form">
-                    <input type="text" class="search_input" placeholder="Search Item" required="required">
-                    <button class="header_search_button"><img src="<c:url value="/resources/images/search.png"/>" alt=""></button>
-                </form>
+                <form:form action="/littleshop/search" id="header_search_form" method="Get">
+                    <input type="text" name="keyword" value="${param.keyword}" class="search_input" placeholder="Search Item" required="required">
+                    <button class="header_search_button"><img sr="<c:url value="/resources/images/search.png"/>" alt=""></button>
+                </form:form>
             </div>
 
             <!-- User -->

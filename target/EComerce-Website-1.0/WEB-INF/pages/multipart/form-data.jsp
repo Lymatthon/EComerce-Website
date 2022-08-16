@@ -14,10 +14,7 @@
         <form:form modelAttribute="productImages" method="POST"
                    action="/littleshop/uploadMultifile" enctype="multipart/form-data">
 
-            Description:
-            <br>
-            <form:input path="description" style="width:300px;"/>                
-            <br/><br/>                 
+                             
 
             File to upload (1): <form:input path="fileDatas" type="file"/><br />      
             File to upload (2): <form:input path="fileDatas" type="file"/><br />    

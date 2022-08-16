@@ -3,7 +3,7 @@ package com.mycompany.spring_mvc_project_final.entities;
 import com.mycompany.spring_mvc_project_final.enums.OrderStatus;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -47,10 +47,10 @@ public class OrderEntity extends Customer implements Serializable {
     private int discount;
 
     @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
-    private Set<OrderDetail> orderDetails;
+    private List<OrderDetail> orderDetails;
 
     @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
-    private Set<Payment> payments;
+    private List<Payment> payments;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "order_promotion",
@@ -59,7 +59,7 @@ public class OrderEntity extends Customer implements Serializable {
             inverseJoinColumns = @JoinColumn(
                     name = "promotion_id",
                     referencedColumnName = "promotionId"))
-    private Set<Promotion> promotions;
+    private List<Promotion> promotions;
 
     @ManyToOne
     @JoinColumn(name = "id")
@@ -105,27 +105,27 @@ public class OrderEntity extends Customer implements Serializable {
         this.discount = discount;
     }
 
-    public Set<OrderDetail> getOrderDetails() {
+    public List<OrderDetail> getOrderDetails() {
         return orderDetails;
     }
 
-    public void setOrderDetails(Set<OrderDetail> orderDetails) {
+    public void setOrderDetails(List<OrderDetail> orderDetails) {
         this.orderDetails = orderDetails;
     }
 
-    public Set<Payment> getPayments() {
+    public List<Payment> getPayments() {
         return payments;
     }
 
-    public void setPayments(Set<Payment> payments) {
+    public void setPayments(List<Payment> payments) {
         this.payments = payments;
     }
 
-    public Set<Promotion> getPromotions() {
+    public List<Promotion> getPromotions() {
         return promotions;
     }
 
-    public void setPromotions(Set<Promotion> promotions) {
+    public void setPromotions(List<Promotion> promotions) {
         this.promotions = promotions;
     }
 

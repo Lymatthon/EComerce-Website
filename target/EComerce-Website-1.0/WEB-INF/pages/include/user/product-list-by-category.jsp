@@ -4,22 +4,6 @@
 
 <div class="products">
     <div class="container">
- <!--       <div class="row">
-            <div class="col-lg-6 offset-lg-3">
-                <div class="section_title text-center">Popular on Little Closet</div>
-            </div>
-        </div>
-        <div class="row page_nav_row">
-            <div class="col">
-                <div class="page_nav">
-                    <ul class="d-flex flex-row align-items-start justify-content-center">
-                        <c:forEach var="cate" items="${cates}">
-                            <li class="active"><a href="/littleshop/product/category/${cate.categoryId}">${cate.categoryName}</a></li>
-                        </c:forEach>
-                    </ul>
-                </div>
-            </div>
-        </div> -->
         <div class="row products_row">
             <c:forEach var="p" items="${products}">
 
@@ -27,7 +11,7 @@
             <div class="col-xl-4 col-md-6">
                 <div class="product">
                     
-                    <div class="product_image"><img src="<c:url value="/resources/images/product_1.jpg"/>" alt=""></div>
+                    <div class="product_image"><img src="<c:url value="/resources/image/"/>${p.image.imageName}" alt=""></div>
                     <div class="product_content">
                         <div class="product_info d-flex flex-row align-items-start justify-content-start">
                             <div>

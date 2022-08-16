@@ -27,7 +27,7 @@
             <div class="col-xl-4 col-md-6">
                 <div class="product">
                     
-                    <div class="product_image"><img src="<c:url value="/resources/images/product_1.jpg"/>" alt=""></div>
+                    <div class="product_image"><img src="<c:url value="/resources/image/"/>${p.image.imageName}" alt=""></div>
                     <div class="product_content">
                         <div class="product_info d-flex flex-row align-items-start justify-content-start">
                             <div>

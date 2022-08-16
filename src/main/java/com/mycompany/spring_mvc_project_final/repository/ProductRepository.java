@@ -24,5 +24,8 @@ public interface ProductRepository extends CrudRepository<Product, Long>{
     + " order by o.sizeProduct desc", nativeQuery = true)
     List<Product> findBestSellingProduct();
     
-    
+    @Query(value = "select * from product where "
+    + "match(`description`,productName) "
+    + "against(?1)", nativeQuery = true)
+    List<Product> search(String keyword);
 }

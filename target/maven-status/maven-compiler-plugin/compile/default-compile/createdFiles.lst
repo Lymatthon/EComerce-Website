@@ -16,11 +16,13 @@ com\mycompany\spring_mvc_project_final\enums\CommonStatus.class
 com\mycompany\spring_mvc_project_final\entities\OrderDetail.class
 com\mycompany\spring_mvc_project_final\enums\OrderStatus.class
 com\mycompany\spring_mvc_project_final\entities\Color.class
+com\mycompany\spring_mvc_project_final\repository\ImageRepository.class
 com\mycompany\spring_mvc_project_final\service\UserDetailsServiceImpl.class
 com\mycompany\spring_mvc_project_final\controller\AdminController.class
 com\mycompany\spring_mvc_project_final\configuration\JPAConfig.class
 com\mycompany\spring_mvc_project_final\entities\Image.class
 com\mycompany\spring_mvc_project_final\repository\CategoryRepository.class
+com\mycompany\spring_mvc_project_final\service\ImageService.class
 com\mycompany\spring_mvc_project_final\enums\UserStatus.class
 com\mycompany\spring_mvc_project_final\controller\UserController.class
 com\mycompany\spring_mvc_project_final\controller\HomeController.class

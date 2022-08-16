@@ -20,7 +20,9 @@
                                         <div class="home_items">
                                             <div class="row">
                                                 <div class="col-sm-3 offset-lg-1">
-                                                    <div class="home_item_side"><a href="product.html"><img src="<c:url value="/resources/images/home_1.jpg"/>" alt=""></a></div>
+                                                    <c:forEach var="image" items="${p.images}" begin="0" end="0">
+                                                    <div class="home_item_side"><a href="/littleshop/product/details/${p.productId}"><img src="<c:url value="/resources/image/"/>${image.imageName}" alt=""></a></div>
+                                                    </c:forEach>
                                                 </div>
                                                 <div class="col-lg-4 col-md-6 col-sm-8 offset-sm-2 offset-md-0">
                                                     <div class="product home_item_large">

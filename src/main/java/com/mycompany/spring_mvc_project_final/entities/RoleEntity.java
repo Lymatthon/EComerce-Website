@@ -7,7 +7,7 @@ package com.mycompany.spring_mvc_project_final.entities;
 
 import com.mycompany.spring_mvc_project_final.enums.Role;
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -31,7 +31,7 @@ public class RoleEntity implements Serializable {
     private Role role = Role.ROLE_USER;
 
     @ManyToMany(mappedBy = "userRoles")
-    private Set<Account> users;
+    private List<Account> users;
 
     public long getId() {
         return roleId;
@@ -49,11 +49,11 @@ public class RoleEntity implements Serializable {
         this.role = role;
     }
 
-    public Set<Account> getUsers() {
+    public List<Account> getUsers() {
         return users;
     }
 
-    public void setUsers(Set<Account> users) {
+    public void setUsers(List<Account> users) {
         this.users = users;
     }
 

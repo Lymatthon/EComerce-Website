@@ -2,7 +2,7 @@ package com.mycompany.spring_mvc_project_final.entities;
 
 import com.mycompany.spring_mvc_project_final.enums.UserStatus;
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -48,12 +48,12 @@ public class Account extends Customer implements Serializable {
             inverseJoinColumns = @JoinColumn(
                     name = "role_id",
                     referencedColumnName = "roleId"))
-    private Set<RoleEntity> userRoles;
+    private List<RoleEntity> userRoles;
     
 
 
     @OneToMany(mappedBy = "account", fetch = FetchType.LAZY)
-    private Set<OrderEntity> orders;
+    private List<OrderEntity> orders;
 
     public Account() {
     }
@@ -82,11 +82,11 @@ public class Account extends Customer implements Serializable {
         this.password = password;
     }
 
-    public Set<RoleEntity> getUserRoles() {
+    public List<RoleEntity> getUserRoles() {
         return userRoles;
     }
 
-    public void setUserRoles(Set<RoleEntity> userRoles) {
+    public void setUserRoles(List<RoleEntity> userRoles) {
         this.userRoles = userRoles;
     }
 
@@ -106,11 +106,11 @@ public class Account extends Customer implements Serializable {
         this.confirmPassword = confirmPassword;
     }
 
-    public Set<OrderEntity> getOrders() {
+    public List<OrderEntity> getOrders() {
         return orders;
     }
 
-    public void setOrders(Set<OrderEntity> orders) {
+    public void setOrders(List<OrderEntity> orders) {
         this.orders = orders;
     }
 

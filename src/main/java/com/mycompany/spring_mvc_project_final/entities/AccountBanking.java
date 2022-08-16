@@ -2,7 +2,7 @@ package com.mycompany.spring_mvc_project_final.entities;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -51,7 +51,7 @@ public class AccountBanking extends Customer implements Serializable{
     private String cvvCode;
     
     @OneToMany(mappedBy = "accountBanking",fetch = FetchType.EAGER)
-    private Set<Payment> payments;
+    private List<Payment> payments;
     
     public long getAcId() {
         return acId;
@@ -125,11 +125,11 @@ public class AccountBanking extends Customer implements Serializable{
         this.cvvCode = cvvCode;
     }
 
-    public Set<Payment> getPayments() {
+    public List<Payment> getPayments() {
         return payments;
     }
 
-    public void setPayments(Set<Payment> payments) {
+    public void setPayments(List<Payment> payments) {
         this.payments = payments;
     }
     

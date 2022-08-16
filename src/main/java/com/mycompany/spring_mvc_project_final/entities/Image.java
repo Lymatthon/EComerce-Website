@@ -1,14 +1,13 @@
 package com.mycompany.spring_mvc_project_final.entities;
 
 import java.io.Serializable;
-import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
@@ -24,14 +23,13 @@ public class Image implements Serializable {
     @Column(nullable = false, length = 100)
     private String imageName;
 
-    @Column(nullable = false, length = 100)
-    private String description;
-
+    
     @Transient
     private CommonsMultipartFile[] fileDatas;
-
-    @OneToMany(mappedBy = "image", fetch = FetchType.LAZY)
-    private Set<Product> products;
+     
+    @ManyToOne
+    @JoinColumn(name = "productId")
+    Product product;
 
     public long getImageId() {
         return imageId;
@@ -49,14 +47,6 @@ public class Image implements Serializable {
         this.imageName = imageName;
     }
 
-    public Set<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(Set<Product> products) {
-        this.products = products;
-    }
-
     public CommonsMultipartFile[] getFileDatas() {
         return fileDatas;
     }
@@ -65,12 +55,14 @@ public class Image implements Serializable {
         this.fileDatas = fileDatas;
     }
 
-    public String getDescription() {
-        return description;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setProduct(Product product) {
+        this.product = product;
     }
+
+
 
 }

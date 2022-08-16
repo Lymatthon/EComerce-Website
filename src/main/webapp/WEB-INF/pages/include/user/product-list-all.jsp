@@ -15,7 +15,7 @@
                 <div class="page_nav">
                     <ul class="d-flex flex-row align-items-start justify-content-center">
                         <c:forEach var="cate" items="${cates}">
-                            <li class="active"><a href="/category/${cate.categoryId}">${cate.categoryName}</a></li>
+                            <li class="active"><a href="/littleshop/product/category/${cate.categoryId}">${cate.categoryName}</a></li>
                             </c:forEach>
                     </ul>
                 </div>
@@ -26,8 +26,9 @@
                 <!-- Product -->
                 <div class="col-xl-4 col-md-6">
                     <div class="product">
-
-                        <div class="product_image"><img src="<c:url value="/resources/images/product_1.jpg"/>" alt=""></div>
+                        <c:forEach var="i" items="${p.images}" begin="0" end="0">
+                        <div class="product_image"><img src="<c:url value="/resources/image/${i.imageName}"/>" alt=""></div>
+                        </c:forEach>
                         <div class="product_content">
                             <div class="product_info d-flex flex-row align-items-start justify-content-start">
                                 <div>
@@ -40,7 +41,7 @@
                                 </div>
                                 <div class="ml-auto text-right">
                                     <div class="rating_r rating_r_4 home_item_rating"><i></i><i></i><i></i><i></i><i></i></div>
-                                    <div class="product_price text-right">${p.price}</span></div>
+                                    <div class="product_price text-right">${p.price}</div>
                                 </div>
                             </div>
                             <div class="product_buttons">

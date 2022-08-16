@@ -1,7 +1,7 @@
 package com.mycompany.spring_mvc_project_final.entities;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -22,7 +22,7 @@ public class SizeEntity implements Serializable{
     private String productSize;
     
     @OneToMany(mappedBy = "size",fetch = FetchType.EAGER)
-    private Set<ProductDetail> pDetail;
+    private List<ProductDetail> pDetail;
 
     public long getSizeId() {
         return sizeId;
@@ -40,11 +40,11 @@ public class SizeEntity implements Serializable{
         this.productSize = size;
     }
 
-    public Set<ProductDetail> getpDetail() {
+    public List<ProductDetail> getpDetail() {
         return pDetail;
     }
 
-    public void setpDetail(Set<ProductDetail> pDetail) {
+    public void setpDetail(List<ProductDetail> pDetail) {
         this.pDetail = pDetail;
     }
     

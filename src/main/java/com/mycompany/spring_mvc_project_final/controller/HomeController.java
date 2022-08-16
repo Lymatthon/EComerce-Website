@@ -13,10 +13,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -44,6 +42,9 @@ public class HomeController {
         List<Product> listProduct = productService.getProducts();
         List<Product> listNewestProduct = productService.getNewestProduct();
         double minPrice = listNewestProduct.get(0).getPrice();
+        for(Product p: listNewestProduct){
+           p.getImages().get(0); 
+        }
         model.addAttribute("listProduct", listProduct);
         model.addAttribute("listNewestProduct", listNewestProduct);
         model.addAttribute("minPrice", minPrice);
@@ -69,7 +70,7 @@ public class HomeController {
         // đưa vào service
         RoleEntity roleE = new RoleEntity();
         roleE.setRole(Role.ROLE_USER);
-        Set<RoleEntity> userRoles = new HashSet<>();
+        List<RoleEntity> userRoles = new ArrayList<>();
         userRoles.add(roleE);
         user.setStatus(UserStatus.ACTIVE);
         user.setUserRoles(userRoles);
@@ -123,8 +124,9 @@ public class HomeController {
     }
 
     private String doUpload(HttpServletRequest request, Model model, Image image) {
-        String description = image.getDescription();
-        String uploadRootPath = request.getServletContext().getRealPath("/image");
+//        String uploadRootPath = request.getServletContext().getRealPath("/resources/image");
+        String uploadRootPath = "D:\\DO AN 2022\\EComerce-Website\\src\\main\\webapp\\resources\\image";        
+        
         File uploadRootDir = new File(uploadRootPath);
         // Tạo thư mục gốc upload nếu nó không tồn tại.
         if (!uploadRootDir.exists()) {
@@ -151,7 +153,9 @@ public class HomeController {
                 }
             }
         }
-        model.addAttribute("description", description);
+        for(File f : uploadedFiles){
+            f.getName();
+        }
         model.addAttribute("uploadedFiles", uploadedFiles);
         return "multipart/viewFile";
     }

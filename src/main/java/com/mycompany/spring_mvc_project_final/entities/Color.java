@@ -1,6 +1,7 @@
 package com.mycompany.spring_mvc_project_final.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,7 +23,7 @@ public class Color implements Serializable{
     private String color;
     
     @OneToMany(mappedBy = "color",fetch = FetchType.LAZY)
-    private Set<ProductDetail> pDetail;
+    private List<ProductDetail> pDetail;
 
     public long getColorId() {
         return colorId;
@@ -40,11 +41,11 @@ public class Color implements Serializable{
         this.color = color;
     }
 
-    public Set<ProductDetail> getpDetail() {
+    public List<ProductDetail> getpDetail() {
         return pDetail;
     }
 
-    public void setpDetail(Set<ProductDetail> pDetail) {
+    public void setpDetail(List<ProductDetail> pDetail) {
         this.pDetail = pDetail;
     }
     

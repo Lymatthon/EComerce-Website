@@ -27,8 +27,9 @@ public class ProductService {
         List<Product> products = (List<Product>) productRepo.findAll();
         if (!CollectionUtils.isEmpty(products)) {
             for (Product c : products) {
-                Hibernate.initialize(c.getpDetails());
-                Hibernate.initialize(c.getOrderDetails());
+                Hibernate.initialize( c.getpDetails());
+                Hibernate.initialize( c.getOrderDetails());
+                Hibernate.initialize( c.getImages());
             }
             return products;
         }
@@ -44,6 +45,7 @@ public class ProductService {
             for (Product c : products) {
                 Hibernate.initialize(c.getpDetails());
                 Hibernate.initialize(c.getOrderDetails());
+                Hibernate.initialize( c.getImages());
             }
             return products;
         }
@@ -57,6 +59,7 @@ public class ProductService {
             for (Product c : products) {
                 Hibernate.initialize(c.getpDetails());
                 Hibernate.initialize(c.getOrderDetails());
+                Hibernate.initialize( c.getImages());
             }
             return products;
         }
@@ -71,6 +74,7 @@ public class ProductService {
             for (Product c : products) {
                 Hibernate.initialize(c.getpDetails());
                 Hibernate.initialize(c.getOrderDetails());
+                Hibernate.initialize( c.getImages());
             }
             return products;
         }
@@ -86,5 +90,22 @@ public class ProductService {
         }
         return new Product();
     }
+    
+    @Transactional
+    public List<Product> getProductBySearch(String keyword) {
+        List<Product> products = (List<Product>) productRepo.search(keyword);
+        if (!CollectionUtils.isEmpty(products)) {
+            for (Product c : products) {
+                Hibernate.initialize(c.getpDetails());
+                Hibernate.initialize(c.getOrderDetails());
+                Hibernate.initialize( c.getImages());
+            }
+            return products;
+        }
+
+        return new ArrayList<>();
+    }
+    
+    
 
 }

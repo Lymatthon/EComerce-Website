@@ -2,7 +2,7 @@ package com.mycompany.spring_mvc_project_final.entities;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -31,7 +31,7 @@ public class Product implements Serializable {
     @Column(nullable = false, length = 20)
     private double price;
 
-    @Column(nullable = true, length = 100)
+    @Column(nullable = true, length = 255)
     private String description;
     
     @Column(nullable = false)
@@ -42,16 +42,15 @@ public class Product implements Serializable {
     @ManyToOne
     @JoinColumn(name = "categoryId")
     Category category;
+       
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    private List<Image> images;
 
-    @ManyToOne
-    @JoinColumn(name = "imageId")
-    Image image;
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    private List<ProductDetail> pDetails;
 
-    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
-    private Set<ProductDetail> pDetails;
-
-    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
-    private Set<OrderDetail> orderDetails;
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    private List<OrderDetail> orderDetails;
 
     public long getProductId() {
         return productId;
@@ -93,27 +92,19 @@ public class Product implements Serializable {
         this.category = category;
     }
 
-    public Image getImage() {
-        return image;
-    }
-
-    public void setImage(Image image) {
-        this.image = image;
-    }
-
-    public Set<ProductDetail> getpDetails() {
+    public List<ProductDetail> getpDetails() {
         return pDetails;
     }
 
-    public void setpDetails(Set<ProductDetail> pDetails) {
+    public void setpDetails(List<ProductDetail> pDetails) {
         this.pDetails = pDetails;
     }
 
-    public Set<OrderDetail> getOrderDetails() {
+    public List<OrderDetail> getOrderDetails() {
         return orderDetails;
     }
 
-    public void setOrderDetails(Set<OrderDetail> orderDetails) {
+    public void setOrderDetails(List<OrderDetail> orderDetails) {
         this.orderDetails = orderDetails;
     }
 
@@ -124,5 +115,14 @@ public class Product implements Serializable {
     public void setDateCreate(Date dateCreate) {
         this.dateCreate = dateCreate;
     }
+
+    public List<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(List<Image> images) {
+        this.images = images;
+    }
+    
 
 }

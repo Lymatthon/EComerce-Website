@@ -2,7 +2,7 @@ package com.mycompany.spring_mvc_project_final.entities;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -47,7 +47,7 @@ public class Promotion implements Serializable{
     private boolean used;
     
     @ManyToMany(mappedBy = "promotions")
-    private Set<OrderEntity> orders;
+    private List<OrderEntity> orders;
 
     public long getPromotionId() {
         return promotionId;
@@ -113,11 +113,11 @@ public class Promotion implements Serializable{
         this.used = used;
     }
 
-    public Set<OrderEntity> getOrders() {
+    public List<OrderEntity> getOrders() {
         return orders;
     }
 
-    public void setOrders(Set<OrderEntity> orders) {
+    public void setOrders(List<OrderEntity> orders) {
         this.orders = orders;
     }
     

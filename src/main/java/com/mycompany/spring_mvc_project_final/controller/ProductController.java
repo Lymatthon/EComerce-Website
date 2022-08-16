@@ -6,12 +6,13 @@ import com.mycompany.spring_mvc_project_final.entities.ProductDetail;
 import com.mycompany.spring_mvc_project_final.service.CategoryService;
 import com.mycompany.spring_mvc_project_final.service.ProductService;
 import java.util.List;
-import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class ProductController {
@@ -40,14 +41,16 @@ public class ProductController {
     @RequestMapping(value = "/product/details/{productId}")
     public String viewProductDetails(Model model, @PathVariable("productId") Long productId) {
         Product product = productService.getProduct(productId);
-        Set<ProductDetail> listProductDetails = product.getpDetails();
-        for(ProductDetail l : listProductDetails){
-            System.out.println(l.getSize());
-        }
+        List<ProductDetail> listProductDetails = product.getpDetails();
         model.addAttribute("product", product);
         model.addAttribute("listProductDetails", listProductDetails);
         return "user/page-product";
     }
 
-
+    @GetMapping(value = "/search")
+    public String searchProduct(@RequestParam("keyword") String keyword, Model model ){
+        List<Product> listProductBySearch = productService.getProductBySearch(keyword);
+        model.addAttribute("listProductBySearch", listProductBySearch);
+        return "user/page-product-by-search";
+    }
 }
