@@ -35,7 +35,7 @@
                                     <div>
                                         <div class="product_name"><a href="/littleshop/product/details/${p.productId}">${p.productName}</a></div>
 
-                                        <div class="product_category">In <a href="/littleshop/product/category/${p.category.categoryId}${p.category.categoryName}"><c:out value="${p.category.categoryName}" /></a></div>
+                                        <div class="product_category">In <a href="/littleshop/product/category/${p.category.categoryId}"><c:out value="${p.category.categoryName}" /></a></div>
 
                                     </div>
                                 </div>
@@ -49,10 +49,15 @@
                                     <div class="product_button product_fav text-center d-flex flex-column align-items-center justify-content-center">
                                         <div><div><img src="<c:url value="/resources/images/heart_2.svg"/>" class="svg" alt=""><div>+</div></div></div>
                                     </div>
+                                    
                                     <div class="product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
-                                        <div><div><img src="<c:url value="/resources/images/cart.svg"/>" class="svg" alt=""><div>+</div></div></div>
-
+                                        
+                                        <div><div ><a href="#" onclick="addToCart(${p.productId},`${p.productName}`,${p.price})"><img src="<c:url value="/resources/images/cart.svg"/>" class="svg" alt=""></a><div>+</div></div>
+                                           
+                                        </div>
+                                        
                                     </div>
+                                        
                                 </div>
                             </div>
                         </div>

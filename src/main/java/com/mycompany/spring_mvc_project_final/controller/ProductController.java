@@ -1,6 +1,7 @@
 package com.mycompany.spring_mvc_project_final.controller;
 
 import com.mycompany.spring_mvc_project_final.entities.Category;
+import com.mycompany.spring_mvc_project_final.entities.Image;
 import com.mycompany.spring_mvc_project_final.entities.Product;
 import com.mycompany.spring_mvc_project_final.entities.ProductDetail;
 import com.mycompany.spring_mvc_project_final.service.CategoryService;
@@ -44,6 +45,10 @@ public class ProductController {
         List<ProductDetail> listProductDetails = product.getpDetails();
         model.addAttribute("product", product);
         model.addAttribute("listProductDetails", listProductDetails);
+        for(ProductDetail p : listProductDetails){
+            p.getColor().getColor();
+            p.getSize().getSize();            
+        }
         return "user/page-product";
     }
 

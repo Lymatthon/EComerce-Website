@@ -1,13 +1,14 @@
 package com.mycompany.spring_mvc_project_final.controller;
 
 import com.mycompany.spring_mvc_project_final.entities.Account;
+import com.mycompany.spring_mvc_project_final.entities.CartDTO;
+import com.mycompany.spring_mvc_project_final.entities.Category;
 import com.mycompany.spring_mvc_project_final.entities.Image;
 import com.mycompany.spring_mvc_project_final.entities.Product;
-import com.mycompany.spring_mvc_project_final.entities.RoleEntity;
-import com.mycompany.spring_mvc_project_final.enums.Role;
-import com.mycompany.spring_mvc_project_final.enums.UserStatus;
-import com.mycompany.spring_mvc_project_final.repository.AccountRepository;
+import com.mycompany.spring_mvc_project_final.service.AccountService;
+import com.mycompany.spring_mvc_project_final.service.CategoryService;
 import com.mycompany.spring_mvc_project_final.service.ProductService;
+import com.mycompany.spring_mvc_project_final.utils.Utils;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -16,38 +17,58 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 @Controller
+@ControllerAdvice
 public class HomeController {
 
     @Autowired
     ProductService productService;
 
     @Autowired
-    AccountRepository accountRepo;
-
+    AccountService accountService;
+    
     @Autowired
-    BCryptPasswordEncoder passwordEncoder;
-
+    CategoryService cateService;
+    
+    @ModelAttribute
+    public void commonAttribute(Model model, HttpSession session) {
+        List<Category> cates = cateService.getCategories();
+        model.addAttribute("cates", cates);
+        model.addAttribute("cartCounter", Utils.countCart((Map<Long, CartDTO>) session.getAttribute("cart")));
+    }
+    
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
     public String welcomePage(Model model) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = principal.toString();
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails) principal).getUsername();
+        }
+        
         List<Product> listProduct = productService.getProducts();
         List<Product> listNewestProduct = productService.getNewestProduct();
         double minPrice = listNewestProduct.get(0).getPrice();
         for(Product p: listNewestProduct){
-           p.getImages().get(0); 
+            if(p.getPrice() < minPrice){
+                minPrice = p.getPrice();
+            }
         }
         model.addAttribute("listProduct", listProduct);
         model.addAttribute("listNewestProduct", listNewestProduct);
         model.addAttribute("minPrice", minPrice);
+        model.addAttribute("username", username);
         // sp moi nhat + tat ca sp
 
         return "index";
@@ -67,21 +88,10 @@ public class HomeController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String register(Model model, @ModelAttribute(value = "user") Account user) {
-        // đưa vào service
-        RoleEntity roleE = new RoleEntity();
-        roleE.setRole(Role.ROLE_USER);
-        List<RoleEntity> userRoles = new ArrayList<>();
-        userRoles.add(roleE);
-        user.setStatus(UserStatus.ACTIVE);
-        user.setUserRoles(userRoles);
         String errMsg = "";
-
         if (!user.getPassword()
                 .isEmpty() || user.getPassword().equals(user.getConfirmPassword())) {
-            String encryptedPassword = passwordEncoder.encode(user.getPassword());
-            user.setPassword(encryptedPassword);
-            // add ngày khoi tao
-            accountRepo.save(user);
+            accountService.addUser(user);
             return "redirect:/login";
         } else {
             errMsg = "Mat khau khong dung, vui long nhap lai!";
@@ -107,16 +117,18 @@ public class HomeController {
     public String login() {
         return "user/page-login";
     }
+    
+    @RequestMapping(value = "/logout")
+    public String logout() {
+        return "/";
+    }
 
     @RequestMapping(value = "/checkout")
     public String checkout() {
         return "user/page-checkout";
     }
 
-    @RequestMapping(value = "/cart")
-    public String cart() {
-        return "user/page-cart";
-    }
+
 
     @RequestMapping("/403")
     public String accessDenied(Model model) {

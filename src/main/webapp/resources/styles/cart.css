@@ -957,6 +957,10 @@ section
 {
 	right: 0px;
 }
+.qty_input
+{ 
+    left: 22px;
+}
 .product_text > span
 {
 	display: none;

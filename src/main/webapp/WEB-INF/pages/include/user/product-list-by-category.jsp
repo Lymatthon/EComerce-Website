@@ -10,8 +10,9 @@
             <!-- Product -->
             <div class="col-xl-4 col-md-6">
                 <div class="product">
-                    
-                    <div class="product_image"><img src="<c:url value="/resources/image/"/>${p.image.imageName}" alt=""></div>
+                    <c:forEach var="i" items="${p.images}" begin="0" end="0">
+                    <div class="product_image"><img src="<c:url value="/resources/image/${i.imageName}"/>" alt=""></div>
+                    </c:forEach>
                     <div class="product_content">
                         <div class="product_info d-flex flex-row align-items-start justify-content-start">
                             <div>

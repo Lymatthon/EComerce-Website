@@ -11,7 +11,7 @@
 
     <body>
         <!-- Top menu --> 
-        <jsp:include page="include/user/menu.jsp"/>
+        
 
         <div class="super_container">
             <jsp:include page="include/user/header.jsp"/>

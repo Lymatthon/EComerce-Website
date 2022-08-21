@@ -13,5 +13,6 @@
 <script src="<c:url value="/resources/plugins/parallax-js-master/parallax.min.js"/>"></script>
 <script src="<c:url value="/resources/js/product.js"/>"></script>
 <script src="<c:url value="/resources/plugins/flexslider/jquery.flexslider-min.js"/>"></script>
+<script src="<c:url value="/resources/js/main.js"/>"></script>
 
 

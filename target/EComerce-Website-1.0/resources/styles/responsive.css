@@ -43,6 +43,10 @@
 	{
 		margin-left: 100px;
 	}
+        .main_nav_button
+	{
+		margin-left: 100px;
+	}
 }
 
 /************
@@ -63,6 +67,15 @@
 	{
 		margin-right: 39px;
 	}
+        .main_nav_button
+	{
+		margin-left: 70px;
+	}
+	.main_nav_button ul li:not(:last-of-type)
+	{
+		margin-right: 39px;
+	}
+        
 	.header_search
 	{
 		margin-right: 47px;
@@ -76,6 +89,10 @@
 @media only screen and (max-width: 1440px)
 {
 	.main_nav
+	{
+		display: none;
+	}
+        .main_nav_button
 	{
 		display: none;
 	}
@@ -115,7 +132,7 @@
 	}
 	.search_input
 	{
-		width: 300px;
+		width: 500px;
 	}
 }
 

@@ -14,4 +14,5 @@ import org.springframework.stereotype.Repository;
 public interface RoleRepository extends JpaRepository<RoleEntity, Long> {
 
     Set<RoleEntity> findByUsers_Email(String email);
+    
 }

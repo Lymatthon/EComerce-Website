@@ -35,7 +35,7 @@
                             <form:input  class="form-input" path="email" id="email" placeholder="Email"/>
                         </div>
                         <div class="form-group">
-                            <form:input  class="form-input" path="address" id="address" placeholder="Address"/>
+                            <form:input class="form-input" path="address" id="address" placeholder="Address"/>
                         </div>
                         <div class="form-group">
                             <form:input  class="form-input" path="phone" id="phone" placeholder="Phone Number"/>

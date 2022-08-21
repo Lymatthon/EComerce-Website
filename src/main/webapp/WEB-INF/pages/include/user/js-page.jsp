@@ -12,3 +12,4 @@
 <script src="<c:url value="/resources/plugins/progressbar/progressbar.min.js"/>"></script>
 <script src="<c:url value="/resources/plugins/parallax-js-master/parallax.min.js"/>"></script>
 <script src="<c:url value="/resources/js/custom.js"/>"></script>
+<script src="<c:url value="/resources/js/main.js"/>"></script>

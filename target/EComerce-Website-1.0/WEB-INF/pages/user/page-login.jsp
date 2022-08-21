@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,24 +13,34 @@
         <link rel="stylesheet" href="<c:url value="/resources/login/bootstrap.min.css"/>">
     </head>
     <body>
-        <br/><!-- comment -->
         <br/>
         <br/>
+        <br/>
+
         <div class="cont">
-            <div class="form sign-in">
-                <h2>Welcome back,</h2>
-                <label>
-                    <span>Email</span>
-                    <input type="email" />
-                </label>
-                <label>
-                    <span>Password</span>
-                    <input type="password" />
-                </label>
-                <p class="forgot-pass">Forgot password?</p>
-                <button type="button" class="submit">Sign In</button>
-                <button type="button" class="fb-btn">Connect with <span>facebook</span></button>
-            </div>
+
+            <form action="/littleshop/j_spring_security_check" method="post" >
+                <div class="form sign-in">
+                    <h2>Welcome back,</h2>
+                    <c:if test="${param.error != null}">
+                        <div class="alert alert-danger">
+                            <p>Error!</p>
+                        </div>
+                    </c:if>
+
+                    <label for="username">
+                        <span>Email</span>
+                        <input name="username" id="username" type="email" />
+                    </label>
+                    <label for="password">
+                        <span>Password</span>
+                        <input name="password" id="password" type="password" />
+                    </label>
+                    <!--                    <p class="forgot-pass">Forgot password?</p>-->
+                    <button type="submit" class="submit">Sign In</button>
+                    <!--                    <button type="button" class="fb-btn">Connect with <span>facebook</span></button>-->
+                </div>
+            </form>
             <div class="sub-cont">
                 <div class="img">
                     <br/><!-- comment -->
@@ -40,21 +51,14 @@
                         <p>Sign up and discover great amount of new opportunities!</p>
                         <br/><!-- comment -->
                         <br/><!-- comment -->
-                        <!--                        <button type="button" class="submit">
-                                                    <a href="/littleshop/register" class="loginhere-link">Sign Up</a>
-                                                </button>-->
-
                         <a class="sign-in" tyle="text-decoration: none" href="/littleshop/register">Sign Up</a>
                     </div>                 
 
                 </div>
 
             </div>
+        </div>
 
-
-
-
-            <!-- JS -->
-            <script src="<c:url value="/resources/login/bootstrap.bundle.min.js"/>"></script>
+        <script src="<c:url value="/resources/login/bootstrap.bundle.min.js"/>"></script>
     </body>
 </html>

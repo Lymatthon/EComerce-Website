@@ -43,8 +43,13 @@ public class OrderEntity extends Customer implements Serializable {
     @Column(nullable = false, length = 50)
     private String code;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private int discount;
+    
+    @Column(nullable = false)
+    private double amount;
+    
+    
 
     @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
     private List<OrderDetail> orderDetails;
@@ -136,6 +141,15 @@ public class OrderEntity extends Customer implements Serializable {
     public void setAccount(Account account) {
         this.account = account;
     }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+    
     
     
 

@@ -401,11 +401,11 @@ section
 }
 .main_nav
 {
-	margin-left: 111px;
+	margin-left: 110px;
 }
-.main_nav ul li:not(:last-of-type)
+.main_nav ul li
 {
-	margin-right: 49px;
+	margin-right: 25px;
 }
 .main_nav ul li a
 {
@@ -420,7 +420,7 @@ section
 }
 .header_search
 {
-	margin-right: 65px;
+	margin-right: 35px;
 }
 .header_search_form
 {
@@ -490,7 +490,7 @@ section
 	-o-transform: translateY(-50%);
 	transform: translateY(-50%);
 	right: 0;
-	width: 44px;
+	width: 60px;
 	height: 39px;
 	border: none;
 	outline: none;

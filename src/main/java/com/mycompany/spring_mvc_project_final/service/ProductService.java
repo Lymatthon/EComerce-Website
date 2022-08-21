@@ -86,7 +86,12 @@ public class ProductService {
     public Product getProduct(Long pId) {
         Optional<Product> product = productRepo.findById(pId);
         if (product.isPresent()) {
-            return product.get();
+            Product p = product.get();
+            Hibernate.initialize(p.getImages());
+            Hibernate.initialize(p.getOrderDetails());
+            Hibernate.initialize(p.getpDetails());
+            
+            return p;
         }
         return new Product();
     }
