@@ -30,7 +30,7 @@ public class JPAConfig {
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         dataSource.setUrl("jdbc:mysql://localhost:3306/dbminishop?characterEncoding=UTF-8");
         dataSource.setUsername("root");
-        dataSource.setPassword("admin");
+        dataSource.setPassword("");
 
         return dataSource;
     }

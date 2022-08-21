@@ -1,8 +1,10 @@
 package com.mycompany.spring_mvc_project_final.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -43,14 +45,14 @@ public class Product implements Serializable {
     @JoinColumn(name = "categoryId")
     Category category;
        
-    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
-    private List<Image> images;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Image> images = new ArrayList<>();
 
-    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
-    private List<ProductDetail> pDetails;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProductDetail> pDetails = new ArrayList<>() ;
 
-    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
-    private List<OrderDetail> orderDetails;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderDetail> orderDetails = new ArrayList<>();
 
     public long getProductId() {
         return productId;

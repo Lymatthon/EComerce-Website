@@ -1,8 +1,10 @@
 package com.mycompany.spring_mvc_project_final.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -50,8 +52,8 @@ public class AccountBanking extends Customer implements Serializable{
     @Column(nullable = false, length = 5)
     private String cvvCode;
     
-    @OneToMany(mappedBy = "accountBanking",fetch = FetchType.EAGER)
-    private List<Payment> payments;
+    @OneToMany(mappedBy = "accountBanking",cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Payment> payments = new ArrayList<>();
     
     public long getAcId() {
         return acId;

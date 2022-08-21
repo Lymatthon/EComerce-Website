@@ -1,7 +1,9 @@
 package com.mycompany.spring_mvc_project_final.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -24,8 +26,8 @@ public class Category implements Serializable {
     @Column(nullable = true, length = 100)
     private String description;
     
-    @OneToMany(mappedBy = "category",fetch = FetchType.EAGER)
-    private List<Product> products;
+    @OneToMany(mappedBy = "category",cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Product> products = new ArrayList<>();
 
     public long getCategoryId() {
         return categoryId;
