@@ -2,7 +2,6 @@ package com.mycompany.spring_mvc_project_final.entities;
 
 import com.mycompany.spring_mvc_project_final.enums.OrderStatus;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -53,10 +52,10 @@ public class OrderEntity extends Customer implements Serializable {
     
 
     @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
-    private List<OrderDetail> orderDetails = new ArrayList<>();
+    private List<OrderDetail> orderDetails;
 
     @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
-    private List<Payment> payments = new ArrayList<>();
+    private List<Payment> payments;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "order_promotion",
@@ -65,7 +64,7 @@ public class OrderEntity extends Customer implements Serializable {
             inverseJoinColumns = @JoinColumn(
                     name = "promotion_id",
                     referencedColumnName = "promotionId"))
-    private List<Promotion> promotions = new ArrayList<>();
+    private List<Promotion> promotions;
 
     @ManyToOne
     @JoinColumn(name = "id")

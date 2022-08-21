@@ -1,10 +1,8 @@
 package com.mycompany.spring_mvc_project_final.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -24,8 +22,8 @@ public class Color implements Serializable{
     @Column(nullable = false, length = 20)
     private String color;
     
-    @OneToMany(mappedBy = "color",cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ProductDetail> pDetail = new ArrayList<>();
+    @OneToMany(mappedBy = "color",fetch = FetchType.LAZY)
+    private List<ProductDetail> pDetail;
 
     public long getColorId() {
         return colorId;
