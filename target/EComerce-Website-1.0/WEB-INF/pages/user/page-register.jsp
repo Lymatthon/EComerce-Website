@@ -29,28 +29,35 @@
                             <h2 class="form-title">Create account</h2>
                             <div class="form-group">
                                 <form:input class="form-input" path="customerName" id="name" placeholder="Name"/>
+                                <small></small>
                             </div>
                             <div class="form-group">
                                 <form:input  class="form-input" path="email" id="email" placeholder="Email"/>
+                                <small></small>
                             </div>
                             <div class="form-group">
                                 <form:input class="form-input" path="address" id="address" placeholder="Address"/>
+                                <small></small>
                             </div>
                             <div class="form-group">
                                 <form:input  class="form-input" path="phone" id="phone" placeholder="Phone Number"/>
+                                <small></small>
                             </div>
                             <div class="form-group" style="padding: 10px">                            
-                                <form:radiobuttons class="checkbox" path="gender" id="gender" items="${genderMap}"/>                                                        
+                                <form:radiobuttons class="checkbox" path="gender" id="gender" items="${genderMap}"/>
+                                <small></small>
                             </div>
                             <div class="form-group">
                                 <form:input class="form-input" path="password" id="password" placeholder="Password"/>
+                                <small></small>
                                 <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
                             </div>
                             <div class="form-group">
                                 <form:input class="form-input" path="confirmPassword" id="confirmPassword" placeholder="Repeat your password"/>
+                                <small></small>
                             </div>
                             <div class="form-group">
-                                <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
+                                <input type="checkbox" name="agree-term" id="agree-term" checked="true" class="agree-term" />
                                 <label for="agree-term" class="label-agree-term">By creating an account you agree to our <a href="#" class="term-service">Terms of service!</a></label>
                             </div>
                             <div class="form-group">

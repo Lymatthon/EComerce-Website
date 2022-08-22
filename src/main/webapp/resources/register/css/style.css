@@ -1,4 +1,11 @@
 /* @extend display-flex; */
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+
+:root {
+    --error-color: #dc3545;
+    --success-color: #28a745;
+    --warning-color: #ffc107;
+}
 display-flex, .display-flex, .display-flex-center {
   display: flex;
   display: -webkit-flex; }
@@ -356,4 +363,20 @@ input[type=checkbox]:not(old):checked + label > span:before {
   .signup-content {
     padding: 50px 25px; } }
 
+.form-group input:focus {
+    outline: none;
+}
+
+.form-group.error input {
+    border-color: var(--error-color);
+}
+
+.form-group.success input {
+    border-color: var(--success-color);
+}
+
+
+.form-group small {
+    color: var(--error-color);
+}
 /*# sourceMappingURL=style.css.map */
