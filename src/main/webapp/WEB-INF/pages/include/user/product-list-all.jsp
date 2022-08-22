@@ -41,7 +41,7 @@
                                 </div>
                                 <div class="ml-auto text-right">
                                     <div class="rating_r rating_r_4 home_item_rating"><i></i><i></i><i></i><i></i><i></i></div>
-                                    <div class="product_price text-right">${p.price}</div>
+                                    <div class="product_price text-right">$${p.price}</div>
                                 </div>
                             </div>
                             <div class="product_buttons">

@@ -12,3 +12,13 @@
       });
 
 })(jQuery);
+
+function checkValid () {
+  var cbChecked = $("#agree-term").is(":checked");  
+  $("#submit").prop("disabled", !cbChecked);
+}
+
+$( function () {
+  checkValid(); // run it for the first time
+  $("#agree-term").on("change", checkValid);  
+});

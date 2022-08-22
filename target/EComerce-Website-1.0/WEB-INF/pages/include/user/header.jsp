@@ -74,11 +74,11 @@
                     </div>
                 </a>
             </div>
-            <!-- Phone -->
+<!--             Phone 
             <div class="header_phone d-flex flex-row align-items-center justify-content-start">
                 <div><div><img src="<c:url value="/resources/images/phone.svg"/>" alt="https://www.flaticon.com/authors/freepik"></div></div>
 
-            </div>            
+            </div>            -->
         </div>
     </div>
 </header>

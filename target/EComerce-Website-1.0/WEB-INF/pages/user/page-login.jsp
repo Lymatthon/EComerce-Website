@@ -9,56 +9,58 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Login Page</title>
-        <!-- Main css Login-->
-        <link rel="stylesheet" href="<c:url value="/resources/login/bootstrap.min.css"/>">
+
+        <!-- Font Register -->
+        <link rel="stylesheet" href="<c:url value="/resources/register/fonts/material-icon/css/material-design-iconic-font.min.css" />"> 
+
+        <!-- Main css Register-->
+        <link rel="stylesheet" href="<c:url value="/resources/register/css/style.css"/>">
     </head>
     <body>
         <br/>
         <br/>
         <br/>
-
-        <div class="cont">
-
-            <form action="/littleshop/j_spring_security_check" method="post" >
-                <div class="form sign-in">
-                    <h2>Welcome back,</h2>
+       
+        
+        <div class="main">
+            
+            <div class="signup">   
+                <form action="/littleshop/j_spring_security_check" method="post" >
+                <div class="container">
+                    <h2>Welcome back!</h2>
                     <c:if test="${param.error != null}">
                         <div class="alert alert-danger">
                             <p>Error!</p>
                         </div>
                     </c:if>
-
-                    <label for="username">
-                        <span>Email</span>
-                        <input name="username" id="username" type="email" />
-                    </label>
-                    <label for="password">
-                        <span>Password</span>
-                        <input name="password" id="password" type="password" />
-                    </label>
-                    <!--                    <p class="forgot-pass">Forgot password?</p>-->
-                    <button type="submit" class="submit">Sign In</button>
-                    <!--                    <button type="button" class="fb-btn">Connect with <span>facebook</span></button>-->
+                    <div class="signup-content">
+                                                
+                            <div class="form-group">
+                                <input  class="form-input" id="username" name="username" placeholder="Email"/>
+                            </div>
+                            
+                            <div class="form-group">
+                                <input class="form-input" name="password" id="password" placeholder="Password"/>
+                                <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
+                            </div>
+                            
+                            <div class="form-group">
+                                <button type="submit" class="form-submit">Sign up</button>
+                            </div>
+                        
+                        <div>
+                        <p class="loginhere">
+                            New here? <span></span> <a href="/littleshop/register" class="loginhere-link">Register</a>
+                        </p>
+                        </div>
+                    </div>
                 </div>
-            </form>
-            <div class="sub-cont">
-                <div class="img">
-                    <br/><!-- comment -->
-                    <br/><!-- comment -->
-                    <br/><!-- comment -->
-                    <div class="img__text m--up">
-                        <h2>New here?</h2>
-                        <p>Sign up and discover great amount of new opportunities!</p>
-                        <br/><!-- comment -->
-                        <br/><!-- comment -->
-                        <a class="sign-in" tyle="text-decoration: none" href="/littleshop/register">Sign Up</a>
-                    </div>                 
-
-                </div>
-
+                    </form>
             </div>
+                
         </div>
-
-        <script src="<c:url value="/resources/login/bootstrap.bundle.min.js"/>"></script>
+        <!-- JS -->
+        <script src="<c:url value="/resources/register/vendor/jquery/jquery.min.js"/>"></script>
+        <script src="<c:url value="/resources/register/js/main.js"/>"></script>
     </body>
 </html>
