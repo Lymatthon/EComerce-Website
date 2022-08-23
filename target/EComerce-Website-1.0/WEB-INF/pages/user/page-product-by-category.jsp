@@ -6,7 +6,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Little Closet</title>
-        <jsp:include page="/WEB-INF/pages/include/user/css-page.jsp" />
+        <jsp:include page="/WEB-INF/pages/include/user/css-page-category.jsp" />
     </head>
 
     <body>

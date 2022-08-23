@@ -1,25 +1,23 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<div class="home_category">
+    <div class="home_container d-flex flex-column align-items-center justify-content-end">
+        <div class="home_content text-center">
+            <div class="home_title">Popular on Little Closet</div>
+            <div class="breadcrumbs d-flex flex-column align-items-center justify-content-center">
+                <ul class="d-flex flex-row align-items-start justify-content-start text-center">
+                    <c:forEach var="cate" items="${cates}">
+                        <li class="active"><a href="/littleshop/product/category/${cate.categoryId}">${cate.categoryName}</a></li>
+                        </c:forEach>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- Products -->
 
 <div class="products">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-6 offset-lg-3">
-                <div class="section_title text-center">Popular on Little Closet</div>
-            </div>
-        </div>
-        <div class="row page_nav_row">
-            <div class="col">
-                <div class="page_nav">
-                    <ul class="d-flex flex-row align-items-start justify-content-center">
-                        <c:forEach var="cate" items="${cates}">
-                            <li class="active"><a href="/littleshop/product/category/${cate.categoryId}">${cate.categoryName}</a></li>
-                        </c:forEach>
-                    </ul>
-                </div>
-            </div>
-        </div>
         <div class="row products_row">
             <c:forEach var="p" items="${productBestSelling}">
 

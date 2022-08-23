@@ -29,8 +29,8 @@
                 <div class="container">
                     <h2>Welcome back!</h2>
                     <c:if test="${param.error != null}">
-                        <div class="alert alert-danger">
-                            <p>Error!</p>
+                        <div style="text-align: center">
+                            <p style="text-decoration: firebrick; color: red">Error!</p>
                         </div>
                     </c:if>
                     <div class="signup-content">

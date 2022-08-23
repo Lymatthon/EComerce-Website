@@ -98,7 +98,7 @@ const checkAddress = () => {
     if (!isRequired(address)) {
         showError(addressEl, 'Address cannot be blank.');
     } else if (!isBetween(address.length, min, max)) {
-        showError(addressEl, `Name must be between ${min} and ${max} characters.`);
+        showError(addressEl, `Address must be between ${min} and ${max} characters.`);
     } else {
         showSuccess(addressEl);
         valid = true;
@@ -168,8 +168,7 @@ const isPasswordSecure = (password) => {
 };
 
 const isVietnamesePhoneNumber = (phone) => {
-    const re = new RegExp("^(84|0[3|5|7|8|9])+([0-9]{8})\b");
-    return re.test(phone);
+    return /^(84|0[3|5|7|8|9])+([0-9]{8})\b/.test(phone);
 };
 
 const isRequired = value => value === '' ? false : true;
@@ -204,7 +203,6 @@ const showSuccess = (input) => {
 
 form.addEventListener('submit', function (e) {
     // prevent the form from submitting
-    e.preventDefault();
 
     // validate fields
     let isUsernameValid = checkUsername(),

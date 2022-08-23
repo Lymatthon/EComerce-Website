@@ -49,11 +49,12 @@
                             </div>
                             <div class="form-group">
                                 <form:input class="form-input" path="password" id="password" placeholder="Password"/>
+                                <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>                                
                                 <small></small>
-                                <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
                             </div>
                             <div class="form-group">
                                 <form:input class="form-input" path="confirmPassword" id="confirmPassword" placeholder="Repeat your password"/>
+                                <span toggle="#confirmPassword" class="zmdi zmdi-eye field-icon toggle-password"></span>                                
                                 <small></small>
                             </div>
                             <div class="form-group">
