@@ -5,6 +5,7 @@
 package com.mycompany.spring_mvc_project_final.repository;
 
 import com.mycompany.spring_mvc_project_final.entities.ProductDetail;
+import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,5 +15,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface ProductDetailsRepository extends CrudRepository<ProductDetail, Long>{
-    
+//    List<ProductDetail> findByProductIdAndColorId(Long productId, Long colorId);
 }

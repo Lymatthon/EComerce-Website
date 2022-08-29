@@ -1,5 +1,6 @@
 package com.mycompany.spring_mvc_project_final.entities;
 
+import com.mycompany.spring_mvc_project_final.enums.PaymentStatus;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
@@ -30,7 +31,7 @@ public class Payment implements Serializable{
     private Date paymentDate;
     
     @Column(nullable = false, length = 20)
-    private String status;
+    private PaymentStatus status;
     
     @ManyToOne
     @JoinColumn(name = "orderId")
@@ -64,14 +65,15 @@ public class Payment implements Serializable{
         this.paymentDate = paymentDate;
     }
 
-    public String getStatus() {
+    public PaymentStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(PaymentStatus status) {
         this.status = status;
     }
 
+    
     public OrderEntity getOrder() {
         return order;
     }

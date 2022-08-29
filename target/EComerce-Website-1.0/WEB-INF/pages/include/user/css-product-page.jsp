@@ -8,4 +8,6 @@
 <link rel="stylesheet" type="text/css" 
       href="<c:url value="/resources/styles/product.css"/>">
 <link rel="stylesheet" type="text/css" 
+      href="<c:url value="/resources/styles/main_styles.css"/>">
+<link rel="stylesheet" type="text/css" 
       href="<c:url value="/resources/styles/product_responsive.css"/>">

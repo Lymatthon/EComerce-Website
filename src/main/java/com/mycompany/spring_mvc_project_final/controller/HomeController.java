@@ -63,6 +63,7 @@ public class HomeController {
         for(Product p: listNewestProduct){
             if(p.getPrice() < minPrice){
                 minPrice = p.getPrice();
+                p.getImages().size();
             }
         }
         model.addAttribute("listProduct", listProduct);

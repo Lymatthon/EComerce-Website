@@ -40,7 +40,7 @@ public class OrderEntity extends Customer implements Serializable {
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = true, length = 50)
     private String code;
 
     @Column(nullable = true)

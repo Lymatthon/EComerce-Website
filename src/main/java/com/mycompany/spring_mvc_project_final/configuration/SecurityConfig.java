@@ -5,6 +5,8 @@
  */
 package com.mycompany.spring_mvc_project_final.configuration;
 
+import com.mycompany.spring_mvc_project_final.handler.LoginSuccessHandler;
+import com.mycompany.spring_mvc_project_final.handler.LogoutHandler;
 import com.mycompany.spring_mvc_project_final.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -15,6 +17,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -23,16 +27,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
+    
+    @Autowired
+    private AuthenticationSuccessHandler loginSuccessHandler;
 
+    @Autowired
+    private LogoutSuccessHandler logoutHandler;
+    
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         return bCryptPasswordEncoder;
     }
+    
+    @Bean
+    public AuthenticationSuccessHandler loginSuccessHandler(){
+        return new LoginSuccessHandler();
+    }
+    
+    @Bean
+    public LogoutSuccessHandler logoutHandler(){
+        return new LogoutHandler();
+    }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder()); 
     }
 
     @Override
@@ -50,10 +70,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/j_spring_security_check")
                 .loginPage("/login")
                 .defaultSuccessUrl("/home")
+                .successHandler(this.loginSuccessHandler)
                 .failureUrl("/login?error=true")
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .and().logout().logoutUrl("/logout")
-                .logoutSuccessUrl("/home").deleteCookies("JSESSIONID");
+//                .logoutSuccessUrl("/home")
+                .logoutSuccessHandler(this.logoutHandler)
+                .deleteCookies("JSESSIONID");
     }
 }

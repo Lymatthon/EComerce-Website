@@ -20,44 +20,45 @@
         <br/>
         <br/>
         <br/>
-       
-        
+
+
         <div class="main">
-            
+
             <div class="signup">   
                 <form action="/littleshop/j_spring_security_check" method="post" >
-                <div class="container">
-                    <h2>Welcome back!</h2>
-                    <c:if test="${param.error != null}">
-                        <div style="text-align: center">
-                            <p style="text-decoration: firebrick; color: red">Error!</p>
-                        </div>
-                    </c:if>
-                    <div class="signup-content">
-                                                
+                    <div class="container">
+                        <h2>Welcome back!</h2>
+                        <c:if test="${param.error != null}">
+                            <div style="text-align: center">
+                                <p style="text-decoration: firebrick; color: red">Error!</p>
+                            </div>
+                        </c:if>
+                        <div class="signup-content">
+
                             <div class="form-group">
                                 <input  class="form-input" id="username" name="username" placeholder="Email"/>
                             </div>
-                            
+
                             <div class="form-group">
                                 <input class="form-input" name="password" id="password" placeholder="Password"/>
                                 <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
                             </div>
-                            
+
                             <div class="form-group">
                                 <button type="submit" class="form-submit">Sign up</button>
                             </div>
-                        
-                        <div>
-                        <p class="loginhere">
-                            New here? <span></span> <a href="/littleshop/register" class="loginhere-link">Register</a>
-                        </p>
+
+                            <div>
+                                <p class="loginhere">
+                                    New here? <span></span> <a href="/littleshop/register" class="loginhere-link">Register</a>
+                                </p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                    </form>
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                </form>
             </div>
-                
+
         </div>
         <!-- JS -->
         <script src="<c:url value="/resources/register/vendor/jquery/jquery.min.js"/>"></script>

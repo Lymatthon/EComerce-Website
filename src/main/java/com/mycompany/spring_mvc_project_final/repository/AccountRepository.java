@@ -7,6 +7,7 @@ package com.mycompany.spring_mvc_project_final.repository;
 
 import com.mycompany.spring_mvc_project_final.entities.Account;
 import com.mycompany.spring_mvc_project_final.enums.UserStatus;
+import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,5 +16,5 @@ public interface AccountRepository extends CrudRepository<Account, Long> {
 
     Account findByEmailLikeAndStatusLike(String email,
             UserStatus status);
- 
+    List<Account> findByEmail(String email);
 }

@@ -8,7 +8,6 @@ import com.mycompany.spring_mvc_project_final.entities.ProductDetail;
 import com.mycompany.spring_mvc_project_final.repository.ProductDetailsRepository;
 import java.util.ArrayList;
 import java.util.List;
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,5 +33,16 @@ public class ProductDetailsService {
         return new ArrayList<>();
 
     }
+    
+//    @Transactional
+//    public List<ProductDetail> getPDsByColorIdAndProductId(Long productId, Long colorId){
+//        List<ProductDetail> productDetailsList = (List<ProductDetail>) pDetailsRepo.findByProductIdAndColorId(productId, colorId);
+//        if (!CollectionUtils.isEmpty(productDetailsList)) {
+//            return productDetailsList;
+//        }
+//
+//        return new ArrayList<>();
+//    }
+    
 
 }

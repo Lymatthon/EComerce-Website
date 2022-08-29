@@ -21,7 +21,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import com.mycompany.spring_mvc_project_final.repository.AccountRepository;
 import com.mycompany.spring_mvc_project_final.repository.RoleRepository;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -49,6 +48,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         return (UserDetails) new User(user.getEmail(), user.getPassword(), grantList);
     }
+    
+    
     
     
      

@@ -1,7 +1,6 @@
 package com.mycompany.spring_mvc_project_final.entities;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,47 +10,66 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "accountbanking")
-public class AccountBanking extends Customer implements Serializable{
+public class AccountBanking extends Customer implements Serializable {
 
-    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long acId;
-    
+
     @Column(nullable = false)
     private double balance;
-    
-    @Column(nullable = false, length = 50)
-    private String productName;
-    
+
     @Column(nullable = false, length = 20)
     private String idCard;
-    
-    @Column(nullable = false, length = 20)
+
+    @Column(nullable = false, length = 50)
     private String status;
-    
-    @Column(nullable = false, length = 20, unique = true)
+
+    @Column(nullable = false, length = 100, unique = true)
     private String email;
-    
-    @Column(nullable = false, length = 20)
+
+    @Column(nullable = false, length = 20, unique = true)
     private String cardNumber;
+
+    @Column(nullable = false, length = 2)
+    private String expireMonth;
     
-    @Column(nullable = false)
-    @Temporal(TemporalType.DATE)
-    @DateTimeFormat(pattern = "MM/dd/yyyy")
-    private Date expireDate;
-    
+    @Column(nullable = false, length = 2)
+    private String expireYear;
+
     @Column(nullable = false, length = 5)
     private String cvvCode;
-    
-    @OneToMany(mappedBy = "accountBanking",fetch = FetchType.EAGER)
+
+    @OneToMany(mappedBy = "accountBanking", fetch = FetchType.EAGER)
     private List<Payment> payments;
+
+    public String getExpireMonth() {
+        return expireMonth;
+    }
+
+    public void setExpireMonth(String expireMonth) {
+        this.expireMonth = expireMonth;
+    }
+
+    public String getExpireYear() {
+        return expireYear;
+    }
+
+    public void setExpireYear(String expireYear) {
+        this.expireYear = expireYear;
+    }
+    
+
+    public String getExpireDate() {
+        return expireMonth;
+    }
+
+    public void setExpireDate(String expireDate) {
+        this.expireMonth = expireDate;
+    }
     
     public long getAcId() {
         return acId;
@@ -67,14 +85,6 @@ public class AccountBanking extends Customer implements Serializable{
 
     public void setBalance(double balance) {
         this.balance = balance;
-    }
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
     }
 
     public String getIdCard() {
@@ -109,14 +119,6 @@ public class AccountBanking extends Customer implements Serializable{
         this.cardNumber = cardNumber;
     }
 
-    public Date getExpireDate() {
-        return expireDate;
-    }
-
-    public void setExpireDate(Date expireDate) {
-        this.expireDate = expireDate;
-    }
-
     public String getCvvCode() {
         return cvvCode;
     }
@@ -132,5 +134,5 @@ public class AccountBanking extends Customer implements Serializable{
     public void setPayments(List<Payment> payments) {
         this.payments = payments;
     }
-    
+
 }

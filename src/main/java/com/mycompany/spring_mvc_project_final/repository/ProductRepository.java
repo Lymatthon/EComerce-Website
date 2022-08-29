@@ -18,7 +18,6 @@ public interface ProductRepository extends CrudRepository<Product, Long>{
     @Query(value ="select * from product p order by p.dateCreate desc limit 12", nativeQuery = true)
     List<Product> findNewestProduct();
     
-//    @Query(value ="select * from product p order by sizeProduct(p.orderDetail) desc") 
     @Query(value = "select * from product p\n"
     + " inner join orderDetail o on p.productId = o.productId\n"
     + " order by o.sizeProduct desc", nativeQuery = true)
