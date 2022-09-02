@@ -33,16 +33,15 @@ public class ProductDetailsService {
         return new ArrayList<>();
 
     }
-    
-//    @Transactional
-//    public List<ProductDetail> getPDsByColorIdAndProductId(Long productId, Long colorId){
-//        List<ProductDetail> productDetailsList = (List<ProductDetail>) pDetailsRepo.findByProductIdAndColorId(productId, colorId);
-//        if (!CollectionUtils.isEmpty(productDetailsList)) {
-//            return productDetailsList;
-//        }
-//
-//        return new ArrayList<>();
-//    }
-    
 
+    @Transactional
+    public List<Long> getSizeByColorIdAndProductId(Long productId, Long colorId) {
+        List<Long> colorIdList = pDetailsRepo.findSizeIdByProductIdAndColorId(productId, colorId);
+        if (colorIdList != null) {
+
+            return colorIdList;
+        }
+        return new ArrayList<>();
+
+    }
 }

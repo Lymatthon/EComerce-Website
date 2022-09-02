@@ -5,13 +5,10 @@
 package com.mycompany.spring_mvc_project_final.service;
 
 import com.mycompany.spring_mvc_project_final.entities.Color;
-import com.mycompany.spring_mvc_project_final.entities.Product;
-import com.mycompany.spring_mvc_project_final.entities.SizeEntity;
 import com.mycompany.spring_mvc_project_final.repository.ColorRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,7 +28,7 @@ public class ColorService {
         Optional<Color> color = colorRepo.findById(cId);
         if (color.isPresent()) {
             Color c = color.get();
-            Hibernate.initialize(c.getpDetail());            
+//            Hibernate.initialize(c.getpDetail());            
             return c;
         }
         return new Color();
@@ -42,7 +39,7 @@ public class ColorService {
         List<Color> colorList = (List<Color>) colorRepo.findAll();
         if (!CollectionUtils.isEmpty(colorList)) {
             for (Color s : colorList) {
-                Hibernate.initialize( s.getpDetail());
+//                Hibernate.initialize( s.getpDetail());
             }
             return colorList;
         }
@@ -50,5 +47,10 @@ public class ColorService {
         return new ArrayList<>();
 
     }
+     @Transactional
+     public Long getColorIdByColor(String color){
+         Long id = colorRepo.findColorIdByColor(color);
+         return id;
+     }
     
 }

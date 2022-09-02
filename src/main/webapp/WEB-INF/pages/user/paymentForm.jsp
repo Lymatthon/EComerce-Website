@@ -40,7 +40,7 @@
                             </h3>
                         </div>
                         <div class="panel-body">
-                            <form:form role="form" action="/littleshop/cart/pay" modelAttribute="paymentDetails" method="post">
+                            <form:form role="form" action="/littleshop/user/pay" modelAttribute="paymentDetails" method="post">
                                 <div class="form-group">
                                     <label for="customerName">
                                         FULL NAME</label>
@@ -85,6 +85,9 @@
                                 </ul>
                                 <br/>
                                 <button class="btn btn-success btn-lg btn-block" type="submit" role="button">Pay</button>
+                                <button class="btn btn-success btn-lg btn-block" type="button" role="button">
+                                    <a href="/littleshop/user/cancelOrder" style="text-decoration: none; color: darkred">Cancel</a>
+                                </button>
                             </div>
                         </form:form>
                     </div>

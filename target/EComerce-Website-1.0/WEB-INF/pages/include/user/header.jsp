@@ -43,7 +43,8 @@
                         <sec:authorize access="hasRole('ROLE_ADMIN')">
                             <a class="dropdown-item" href="<c:url value="/admin/home" />">Admin Manage</a>
                         </sec:authorize>
-                        <a class="dropdown-item"  href="<c:url value="#" />">My Account</a>
+                        <a class="dropdown-item"  href="<c:url value="/user/viewprofile" />">My Account</a>
+                        <a class="dropdown-item"  href="<c:url value="/order/viewOrderList" />">Order History</a>
                         <a class="dropdown-item" href="<c:url value="/logout" />">Logout</a>                       
                     </sec:authorize>
                 </div>

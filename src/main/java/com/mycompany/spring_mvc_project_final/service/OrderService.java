@@ -6,9 +6,9 @@ package com.mycompany.spring_mvc_project_final.service;
 
 import com.mycompany.spring_mvc_project_final.entities.Account;
 import com.mycompany.spring_mvc_project_final.entities.CartDTO;
-import com.mycompany.spring_mvc_project_final.entities.OrderDTO;
 import com.mycompany.spring_mvc_project_final.entities.OrderDetail;
 import com.mycompany.spring_mvc_project_final.entities.OrderEntity;
+import com.mycompany.spring_mvc_project_final.entities.Product;
 import com.mycompany.spring_mvc_project_final.entities.Promotion;
 import com.mycompany.spring_mvc_project_final.enums.OrderStatus;
 import com.mycompany.spring_mvc_project_final.repository.OrderDetailsRepository;
@@ -18,11 +18,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 /**
  *
@@ -35,49 +37,49 @@ public class OrderService {
     AccountService userService;
 
     @Autowired
-    ProductService prodService;    
-    
+    ProductService prodService;
+
     @Autowired
     OrderDetailsRepository oDetailsRepo;
 
     @Autowired
     OrderRepository orderRepo;
-    
+
     @Autowired
     PromotionService proS;
- 
+
     @Transactional(propagation = Propagation.REQUIRED)
-    public OrderEntity saveReceipt(Map<Long, CartDTO> cart, Long userId, OrderStatus status, OrderDTO orderDTO) {
+    public OrderEntity saveReceipt(Map<Long, CartDTO> cart, Long userId, OrderStatus status) {
         try {
             if (cart != null) {
                 Account userAcount = userService.getAccount(userId);
                 List<Promotion> listCoupon = new ArrayList<>();
                 String codePromotion = "";
                 int discount = 0;
-                for(CartDTO product : cart.values()){
+                for (CartDTO product : cart.values()) {
                     codePromotion = product.getCoupon();
                     discount = product.getDiscount();
                 }
-                
-                listCoupon.add(proS.getPromotionByCode(codePromotion));                
-                
+
                 OrderEntity order = new OrderEntity();
                 order.setAccount(userAcount);
                 order.setDateCreate(new Date());
                 order.setStatus(status);
                 order.setDiscount(discount);
-                order.setCustomerName(orderDTO.getCustomerName());
+                order.setCustomerName(userAcount.getCustomerName());
                 order.setCode(codePromotion);
-                order.setAddress(orderDTO.getAddress());
-                order.setGender(orderDTO.getGender());
-                order.setPhone(orderDTO.getPhone());
+                order.setAddress(userAcount.getAddress());
+                order.setGender(userAcount.getGender());
+                order.setPhone(userAcount.getPhone());
                 order.setPromotions(listCoupon);
-                
+                if (codePromotion != null) {
+                    listCoupon.add(proS.getPromotionByCode(codePromotion));
+                    order.setPromotions(listCoupon);
+                }
+
                 Map<String, String> stats = Utils.cartStats(cart);
                 order.setAmount(Double.parseDouble(stats.get("amount")));
                 orderRepo.save(order);
-                
-                
 
                 for (CartDTO c : cart.values()) {
                     OrderDetail d = new OrderDetail();
@@ -98,5 +100,19 @@ public class OrderService {
 
         }
         return null;
+    }
+    @Transactional
+    public List<OrderEntity> getAllOrder() {
+        List<OrderEntity> orders = (List<OrderEntity>) orderRepo.findAll();
+        if (!CollectionUtils.isEmpty(orders)) {
+            for (OrderEntity c : orders) {
+                Hibernate.initialize( c.getOrderDetails());
+                Hibernate.initialize( c.getPromotions());
+            }
+            return orders;
+        }
+
+        return new ArrayList<>();
+
     }
 }

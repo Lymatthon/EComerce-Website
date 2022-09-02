@@ -50,8 +50,7 @@ public class ProductController {
     @RequestMapping(value = "/product/details/{productId}")
     public String viewProductDetails(Model model, @PathVariable("productId") Long productId) {
         List<String> sizeList =new ArrayList<>();
-        List<String> colorList =new ArrayList<>();
-        
+        List<String> colorList =new ArrayList<>();        
         Product product = productService.getProduct(productId);
         List<ProductDetail> listProductDetails = product.getpDetails();
         // Get unique color/size
@@ -61,9 +60,6 @@ public class ProductController {
         }
         Set<String> uniqueSize = new HashSet<String>(sizeList);
         Set<String> uniqueColor = new HashSet<String>(colorList);
-        
-        
-        
         model.addAttribute("product", product);
         model.addAttribute("listProductDetails", listProductDetails);
         model.addAttribute("uniqueSize", uniqueSize);

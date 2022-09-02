@@ -2,18 +2,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!-- Home -->
 
-<div class="home_cart">
-    <div class="home_container d-flex flex-column align-items-center justify-content-end">
-        <div class="home_content text-center">
-            <div class="home_title">Shopping Cart</div>
-            <div class="breadcrumbs d-flex flex-column align-items-center justify-content-center">
-                <ul class="d-flex flex-row align-items-start justify-content-start text-center">
-
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
+c
 <!-- Cart -->
 <br/>
 <br/><!-- comment -->
@@ -139,7 +128,7 @@
                                 <br>
                                 <br><!-- comment -->
                                 <!--                            <div class="button button_clear trans_200" style="margin: auto"><a href="" onclick="pay()">Checkout</a></div>-->
-                                <div class="button button_clear trans_200" style="margin: auto"><a href="/littleshop/cart/getOrderInformation">Check out</a></div>
+                                <div class="button button_clear trans_200" style="margin: auto"><a href="/littleshop/user/getOrderInformation">Check out</a></div>
                             </div>
                         </div>
                     </div>

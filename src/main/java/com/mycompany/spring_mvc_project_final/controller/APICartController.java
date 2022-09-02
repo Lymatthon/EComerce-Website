@@ -1,6 +1,5 @@
 package com.mycompany.spring_mvc_project_final.controller;
 
-import com.mycompany.spring_mvc_project_final.entities.Account;
 import com.mycompany.spring_mvc_project_final.entities.CartDTO;
 import com.mycompany.spring_mvc_project_final.entities.Promotion;
 import com.mycompany.spring_mvc_project_final.service.OrderService;
@@ -30,9 +29,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class APICartController {
 
     @Autowired
-    OrderService orderService;
-
-    @Autowired
     PromotionService promotionS;
 
     @PostMapping(value = "/api/cart")
@@ -53,6 +49,24 @@ public class APICartController {
         return Utils.countCart(cart);
     }
 
+    @PostMapping(value = "/api/cartFull")
+    public int addToCartFull(@RequestBody CartDTO params, HttpSession session) {
+        Map<Long, CartDTO> cart = (Map<Long, CartDTO>) session.getAttribute("cart");
+        if (cart == null) {
+            cart = new HashMap<>();
+        }
+        Long productId = params.getProductId();
+        if (cart.containsKey(productId)) { // san pham da co trong gio
+            CartDTO c = cart.get(productId);
+            c.setQuantity(c.getQuantity() + params.getQuantity());
+        } else {// san pham chua co trong gio
+            cart.put(productId, params);
+        }
+        session.setAttribute("cart", cart);
+
+        return Utils.countCart(cart);
+    }
+    
     @PutMapping(value = "/api/updateQuantity")
     @ResponseStatus(HttpStatus.OK)
     public int updateCartItem(@RequestBody CartDTO params, HttpSession session) {

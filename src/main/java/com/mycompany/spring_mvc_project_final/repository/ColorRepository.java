@@ -14,5 +14,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface ColorRepository extends CrudRepository<Color, Long>{
-    
+
+    Long findColorIdByColor(String color);
 }

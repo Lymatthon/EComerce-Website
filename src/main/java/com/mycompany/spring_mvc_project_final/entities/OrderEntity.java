@@ -44,7 +44,7 @@ public class OrderEntity extends Customer implements Serializable {
     private String code;
 
     @Column(nullable = true)
-    private int discount;
+    private Integer discount;
     
     @Column(nullable = false)
     private double amount;
@@ -102,11 +102,11 @@ public class OrderEntity extends Customer implements Serializable {
         this.code = code;
     }
 
-    public int getDiscount() {
+    public Integer getDiscount() {
         return discount;
     }
 
-    public void setDiscount(int discount) {
+    public void setDiscount(Integer discount) {
         this.discount = discount;
     }
 

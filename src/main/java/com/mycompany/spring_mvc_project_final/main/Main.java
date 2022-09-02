@@ -11,6 +11,7 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println("password===>" + encrytePassword("123456"));
+        
     }
 
     public static String encrytePassword(String password) {

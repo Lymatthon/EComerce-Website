@@ -5,3 +5,4 @@
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/styles/cart.css"/>">
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/styles/cart_responsive.css"/>">
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/styles/main_styles.css"/>">
+

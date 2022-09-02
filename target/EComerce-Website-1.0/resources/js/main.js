@@ -37,7 +37,6 @@ function updateQuantityCart(obj, productId) {
     }).then(function (data) {
         let counter = document.getElementById("cartCounter");
         counter.innerText = data;
-        location.reload();
     });
 }
 function updateCouponCart(obj, productId) {
@@ -77,7 +76,6 @@ function updateColorCart(obj, productId) {
         return res.json();
     }).then(function (code) {
         console.log(code);
-        location.reload();
     });
 
 }
@@ -101,7 +99,6 @@ function updateSizeCart(obj, productId) {
         return res.json();
     }).then(function (code) {
         console.log(code);
-        location.reload();
     });
 }
 ///
@@ -118,17 +115,46 @@ function deleteCart(productId) {
         location.reload();
     });
 }
-
-function pay() {
-    if (confirm("Accept to pay") == true) {
-        fetch("/littleshop/api/pay", {
-            method: "post"
-        }).then(function (res) {
-            return res.json();
-        }).then(function (code) {
-            console.log(code);
-            location.reload();
-        });
-
-    }
+function updateSizeByColor(obj, productId){
+    fetch("/littleshop/api/updateSizeByColor", {
+        method: 'post',
+        body: JSON.stringify({
+            "productId": productId,
+            "color": obj.value           
+        }),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).then(function (res) {
+        return res.json();
+    }).then(function (data) {
+        console.log(data);
+    });
 }
+function addToCartFull(id, name, price) {
+    event.preventDefault();
+    var color = document.getElementById("colorLabel").value;
+    var size = document.getElementById("sizeLabel").value;
+    var quantity = document.getElementById("quantityUpdate").value;
+    
+    fetch("/littleshop/api/cartFull", {
+        method: 'post',
+        body: JSON.stringify({
+            "productId": id,
+            "productName": name,
+            "price": price,
+            "quantity": quantity,
+            "color": color,
+            "size": size
+        }),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).then(function (res) {
+        return res.json();
+    }).then(function (data) {
+        let counter = document.getElementById("cartCounter");
+        counter.innerText = data;
+    });
+}
+

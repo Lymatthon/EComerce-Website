@@ -1,6 +1,7 @@
 D:\DO AN 2022\EComerce-Website\src\main\java\com\mycompany\spring_mvc_project_final\repository\OrderRepository.java
 D:\DO AN 2022\EComerce-Website\src\main\java\com\mycompany\spring_mvc_project_final\main\Main.java
 D:\DO AN 2022\EComerce-Website\src\main\java\com\mycompany\spring_mvc_project_final\service\ImageService.java
+D:\DO AN 2022\EComerce-Website\src\main\java\com\mycompany\spring_mvc_project_final\configuration\EmailConfiguration.java
 D:\DO AN 2022\EComerce-Website\src\main\java\com\mycompany\spring_mvc_project_final\service\ProductService.java
 D:\DO AN 2022\EComerce-Website\src\main\java\com\mycompany\spring_mvc_project_final\entities\ProductDetail.java
 D:\DO AN 2022\EComerce-Website\src\main\java\com\mycompany\spring_mvc_project_final\service\AccountBankingService.java
@@ -15,13 +16,14 @@ D:\DO AN 2022\EComerce-Website\src\main\java\com\mycompany\spring_mvc_project_fi
 D:\DO AN 2022\EComerce-Website\src\main\java\com\mycompany\spring_mvc_project_final\repository\OrderDetailsRepository.java
 D:\DO AN 2022\EComerce-Website\src\main\java\com\mycompany\spring_mvc_project_final\repository\SizeRepository.java
 D:\DO AN 2022\EComerce-Website\src\main\java\com\mycompany\spring_mvc_project_final\service\OrderService.java
-D:\DO AN 2022\EComerce-Website\src\main\java\com\mycompany\spring_mvc_project_final\configuration\MailConfig.java
 D:\DO AN 2022\EComerce-Website\src\main\java\com\mycompany\spring_mvc_project_final\controller\APIProductDetailController.java
+D:\DO AN 2022\EComerce-Website\src\main\java\com\mycompany\spring_mvc_project_final\controller\EmailController.java
 D:\DO AN 2022\EComerce-Website\src\main\java\com\mycompany\spring_mvc_project_final\service\ColorService.java
 D:\DO AN 2022\EComerce-Website\src\main\java\com\mycompany\spring_mvc_project_final\controller\AdminController.java
 D:\DO AN 2022\EComerce-Website\src\main\java\com\mycompany\spring_mvc_project_final\entities\Image.java
 D:\DO AN 2022\EComerce-Website\src\main\java\com\mycompany\spring_mvc_project_final\repository\PaymentRepository.java
 D:\DO AN 2022\EComerce-Website\src\main\java\com\mycompany\spring_mvc_project_final\controller\ProductController.java
+D:\DO AN 2022\EComerce-Website\src\main\java\com\mycompany\spring_mvc_project_final\controller\APiProductController.java
 D:\DO AN 2022\EComerce-Website\src\main\java\com\mycompany\spring_mvc_project_final\entities\SizeEntity.java
 D:\DO AN 2022\EComerce-Website\src\main\java\com\mycompany\spring_mvc_project_final\enums\OrderStatus.java
 D:\DO AN 2022\EComerce-Website\src\main\java\com\mycompany\spring_mvc_project_final\repository\ColorRepository.java
@@ -39,8 +41,6 @@ D:\DO AN 2022\EComerce-Website\src\main\java\com\mycompany\spring_mvc_project_fi
 D:\DO AN 2022\EComerce-Website\src\main\java\com\mycompany\spring_mvc_project_final\repository\AccountRepository.java
 D:\DO AN 2022\EComerce-Website\src\main\java\com\mycompany\spring_mvc_project_final\service\PaymentService.java
 D:\DO AN 2022\EComerce-Website\src\main\java\com\mycompany\spring_mvc_project_final\controller\UserController.java
-D:\DO AN 2022\EComerce-Website\src\main\java\com\mycompany\spring_mvc_project_final\entities\OrderDTO.java
-D:\DO AN 2022\EComerce-Website\src\main\java\com\mycompany\spring_mvc_project_final\controller\MailController.java
 D:\DO AN 2022\EComerce-Website\src\main\java\com\mycompany\spring_mvc_project_final\service\OrderDetailsService.java
 D:\DO AN 2022\EComerce-Website\src\main\java\com\mycompany\spring_mvc_project_final\service\ProductDetailsService.java
 D:\DO AN 2022\EComerce-Website\src\main\java\com\mycompany\spring_mvc_project_final\entities\OrderDetail.java

@@ -28,9 +28,9 @@ public class AccountBankingService {
     public List<AccountBanking> getListAccBanking() {
         List<AccountBanking> accBankingList = (List<AccountBanking>) abRepo.findAll();
         if (!CollectionUtils.isEmpty(accBankingList)) {
-            for (AccountBanking c : accBankingList) {
-                Hibernate.initialize(c.getPayments());
-            }
+//            for (AccountBanking c : accBankingList) {
+//                Hibernate.initialize(c.getPayments());
+//            }
             return accBankingList;
         }
 

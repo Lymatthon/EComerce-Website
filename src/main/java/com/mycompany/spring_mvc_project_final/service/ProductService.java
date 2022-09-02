@@ -57,8 +57,8 @@ public class ProductService {
         List<Product> products = (List<Product>) productRepo.findNewestProduct();
         if (!CollectionUtils.isEmpty(products)) {
             for (Product c : products) {
-                Hibernate.initialize(c.getpDetails());
-                Hibernate.initialize(c.getOrderDetails());
+//                Hibernate.initialize(c.getpDetails());
+//                Hibernate.initialize(c.getOrderDetails());
                 Hibernate.initialize( c.getImages());
             }
             return products;

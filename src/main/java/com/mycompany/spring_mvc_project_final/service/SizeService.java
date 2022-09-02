@@ -9,6 +9,7 @@ import com.mycompany.spring_mvc_project_final.entities.SizeEntity;
 import com.mycompany.spring_mvc_project_final.repository.SizeRepository;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,6 +37,11 @@ public class SizeService {
 
         return new ArrayList<>();
 
+    }
+   @Transactional
+    public String getSizeBySizeId(Long pId) {
+        String size = sizeRepo.findProductSizeBySizeId(pId);
+            return size;
     }
    
 }
