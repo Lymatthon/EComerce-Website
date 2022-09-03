@@ -66,13 +66,13 @@
                                 <div class="form-group">
                                     <label for="website">Gender</label><br>
 
-                                    <c:if test="${account.gender == 'Male'}"> 
-                                        Female <form:radiobutton path="gender" value="Female"/> 
+                                    <c:if test="${account.gender == 'male'}"> 
+                                        Female <form:radiobutton path="gender" value="female"/> 
                                         Male <form:radiobutton path="gender" value="${account.gender}"/>
                                     </c:if>
-                                    <c:if test="${account.gender == 'Female'}"> 
+                                    <c:if test="${account.gender == 'female'}"> 
                                         Female <form:radiobutton path="gender" value="${account.gender}"/> 
-                                        Male <form:radiobutton path="gender" value="Male"/>
+                                        Male <form:radiobutton path="gender" value="male"/>
                                     </c:if>
 
 

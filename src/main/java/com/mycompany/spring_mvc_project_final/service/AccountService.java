@@ -39,6 +39,7 @@ public class AccountService {
     public Account getAccount(Long userId) {
         Optional<Account> account = accountRpo.findById(userId);
         if (account.isPresent()) {
+
             return account.get();
         }
         return new Account();

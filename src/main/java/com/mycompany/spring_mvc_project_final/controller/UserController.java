@@ -82,16 +82,19 @@ public class UserController {
             HttpSession session) {
         Account account = (Account) session.getAttribute("currentUser");
         String pass = account.getPassword();
-        String message = "Error!";
+        String message = "";
+        boolean flag = false;
         if (passwordEncoder.matches(oldPw, pass)) {
             if (newPw.equals(verifyPw)) {
                 account.setPassword(passwordEncoder.encode(newPw));
                 accountRpo.save(account);
+                flag = true;
                 message = "Your password was change successfully!";
-                model.addAttribute("message", message);
-                return "user/page-change-password";
             }
+        } else {
+            message = "Your password was wrong, please try again!";
         }
+        model.addAttribute("flag", flag);
         model.addAttribute("message", message);
         return "user/page-change-password";
     }

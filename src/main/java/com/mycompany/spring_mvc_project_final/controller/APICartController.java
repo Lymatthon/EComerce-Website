@@ -2,7 +2,6 @@ package com.mycompany.spring_mvc_project_final.controller;
 
 import com.mycompany.spring_mvc_project_final.entities.CartDTO;
 import com.mycompany.spring_mvc_project_final.entities.Promotion;
-import com.mycompany.spring_mvc_project_final.service.OrderService;
 import com.mycompany.spring_mvc_project_final.service.PromotionService;
 import com.mycompany.spring_mvc_project_final.utils.Utils;
 import java.util.Date;
@@ -59,6 +58,8 @@ public class APICartController {
         if (cart.containsKey(productId)) { // san pham da co trong gio
             CartDTO c = cart.get(productId);
             c.setQuantity(c.getQuantity() + params.getQuantity());
+            c.setColor(params.getColor());
+            c.setSize(params.getSize());
         } else {// san pham chua co trong gio
             cart.put(productId, params);
         }

@@ -11,6 +11,16 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <style>
+            .container_input{
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-end;
+                align-items: center;
+                background: white;
+            }
+        </style>
+
     </head>
     <body>
         <div class="container py-5">
@@ -29,7 +39,7 @@
                                     <h3 class="mb-0">Change Password</h3>
                                 </div>
                                 <c:choose>
-                                    <c:when test="${message == 'Error!'}">
+                                    <c:when test="${flag == false}">
                                         <div style="text-align: center">
                                             <p style="text-decoration: firebrick; color: red">${message}</p>
                                         </div>
@@ -44,18 +54,36 @@
                                     <form class="form" action="/littleshop/user/changePassword" method="post" role="form" autocomplete="off">
                                         <div class="form-group">
                                             <label for="inputPasswordOld">Current Password</label>
-                                            <input type="password" class="form-control" name="oldPw" id="inputPasswordOld" required="">
+                                            <div class="input-group" id="show_hide_password">
+                                                <input type="password" class="form-control" name="oldPw" id="inputPasswordOld" required="true">
+                                                <div class="input-group-addon">
+                                                    <a href=""><i class="fa fa-eye-slash" id="btn" aria-hidden="true"></i></a>
+
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="inputPasswordNew">New Password</label>
-                                            <input type="password" class="form-control" name="newPw" id="inputPasswordNew" required="">
+                                            <div class="input-group" id="show_hide_password_1">
+                                                <input type="password" class="form-control" name="newPw" id="inputPasswordNew" required="true"> 
+                                                <div class="input-group-addon">
+                                                    <a href=""><i class="fa fa-eye-slash" id="btn" aria-hidden="true"></i></a>
+
+                                                </div>
+                                            </div>
                                             <span class="form-text small text-muted">
                                                 The password must be 8-20 characters, and must <em>not</em> contain spaces.
                                             </span>
                                         </div>
                                         <div class="form-group">
                                             <label for="inputPasswordNewVerify">Verify</label>
-                                            <input type="password" class="form-control" name="verifyPw" id="inputPasswordNewVerify" required="">
+                                            <div class="input-group" id="show_hide_password_2">
+                                                <input type="password" class="form-control" name="verifyPw" id="inputPasswordNewVerify" required="true">
+                                                <div class="input-group-addon">
+                                                    <a href=""><i class="fa fa-eye-slash" id="btn" aria-hidden="true"></i></a>
+
+                                                </div>
+                                            </div>
                                             <span class="form-text small text-muted">
                                                 To confirm, type the new password again.
                                             </span>
@@ -65,24 +93,16 @@
                                             <button type="button" class="btn btn-info btn-lg float-right"><a style="text-decoration: none; color: white" href="/littleshop/user/viewprofile">Cancel</a></button>
                                         </div>
                                     </form>
+
                                 </div>
                             </div>
-                            <!-- /form card change password -->
 
                         </div>
+                        <br><br><br><br>
 
                     </div>
-                    <!--/row-->
+                </div> 
 
-                    <br><br><br><br>
-
-                </div>
-                <!--/col-->
             </div>
-            <!--/row-->
-
-
-        </div>
-        <!--/container-->
     </body>
 </html>

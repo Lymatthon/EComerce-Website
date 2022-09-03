@@ -67,7 +67,7 @@ public class OrderEntity extends Customer implements Serializable {
     private List<Promotion> promotions;
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "accountId")
     Account account;
     
     public long getOrderId() {

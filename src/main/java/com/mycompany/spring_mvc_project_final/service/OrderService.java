@@ -76,6 +76,7 @@ public class OrderService {
                     listCoupon.add(proS.getPromotionByCode(codePromotion));
                     order.setPromotions(listCoupon);
                 }
+                order.setAccount(userAcount);
 
                 Map<String, String> stats = Utils.cartStats(cart);
                 order.setAmount(Double.parseDouble(stats.get("amount")));
@@ -108,6 +109,7 @@ public class OrderService {
             for (OrderEntity c : orders) {
                 Hibernate.initialize( c.getOrderDetails());
                 Hibernate.initialize( c.getPromotions());
+                Hibernate.initialize( c.getPayments());
             }
             return orders;
         }

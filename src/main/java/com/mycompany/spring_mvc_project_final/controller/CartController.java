@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -30,12 +32,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class CartController {
 
-    /**
-     *
-     * @param model
-     * @param session
-     * @return
-     */
+    @Autowired
+    public MailSender mailsender;
+
     @Autowired
     SizeService sizeS;
 
@@ -74,7 +73,6 @@ public class CartController {
     public String clearCart(HttpSession session) {
         session.removeAttribute("cart");
         return "user/page-cart";
-
     }
 
     @RequestMapping(value = "/user/getOrderInformation")
@@ -137,17 +135,18 @@ public class CartController {
                         paymentService.savePayment(Double.parseDouble(pDetailsDTO.getAmount()), accbanking, orderEntity, PaymentStatus.Completed);
                         error = false;
                         message = "Your order has been successfully placed!";
+                        sendEmail("lethitrucly1920@gmail.com", "thebrokebrandon@gmail.com", "Your order has been place successful!", message);
                     }
                 } else if (accbanking.getBalance() < Double.parseDouble(pDetailsDTO.getAmount())) {
                     orderService.saveReceipt((Map<Long, CartDTO>) session.getAttribute("cart"), userId, OrderStatus.Failed);
                     error = true;
                     message = "Your account is not enough to pay!";
                 }
-            } else if (!checkAccountValid(accbanking, pDetailsDTO)) {
-                orderService.saveReceipt((Map<Long, CartDTO>) session.getAttribute("cart"), userId, OrderStatus.Failed);
-                error = true;
-                message = "Invalid Card!";
             }
+        }
+        if (message.isEmpty()) {
+            orderService.saveReceipt((Map<Long, CartDTO>) session.getAttribute("cart"), userId, OrderStatus.Failed);
+            message = "Invalid Card!";
         }
         session.removeAttribute("cart");
         model.addAttribute("message", message);
@@ -167,6 +166,15 @@ public class CartController {
                 && accbanking.getExpireMonth().equalsIgnoreCase(pDetailsDTO.getExpireMonth())
                 && accbanking.getExpireYear().equalsIgnoreCase(pDetailsDTO.getExpireYear())
                 && accbanking.getCvvCode().equalsIgnoreCase(pDetailsDTO.getCvvCode());
+    }
+
+    public void sendEmail(String from, String to, String subject, String content) {
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setFrom(from);
+        mailMessage.setTo(to);
+        mailMessage.setSubject(subject);
+        mailMessage.setText(content);
+        mailsender.send(mailMessage);
     }
 
 }

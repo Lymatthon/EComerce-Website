@@ -37,6 +37,7 @@ function updateQuantityCart(obj, productId) {
     }).then(function (data) {
         let counter = document.getElementById("cartCounter");
         counter.innerText = data;
+        location.reload();
     });
 }
 function updateCouponCart(obj, productId) {
@@ -133,8 +134,33 @@ function updateSizeByColor(obj, productId){
 }
 function addToCartFull(id, name, price) {
     event.preventDefault();
-    var color = document.getElementById("colorLabel").value;
-    var size = document.getElementById("sizeLabel").value;
+    var color = document.getElementsByName("product_radio_color") .value;
+    var size = document.getElementsByName("product_radio_size").value;
+    var quantity = document.getElementById("quantityUpdate").value;
+    
+    fetch("/littleshop/api/cartFull", {
+        method: 'post',
+        body: JSON.stringify({
+            "productId": id,
+            "productName": name,
+            "price": price,
+            "quantity": quantity,
+            "color": color,
+            "size": size
+        }),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).then(function (res) {
+        return res.json();
+    }).then(function (data) {
+        let counter = document.getElementById("cartCounter");
+        counter.innerText = data;
+    });
+}
+function buyNow(id, name, price) {
+    var color = document.getElementsByName("product_radio_color") .value;
+    var size = document.getElementsByName("product_radio_size").value;
     var quantity = document.getElementById("quantityUpdate").value;
     
     fetch("/littleshop/api/cartFull", {

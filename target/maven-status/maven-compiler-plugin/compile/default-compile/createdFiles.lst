@@ -52,7 +52,6 @@ com\mycompany\spring_mvc_project_final\controller\APICartController.class
 com\mycompany\spring_mvc_project_final\configuration\JPAConfig.class
 com\mycompany\spring_mvc_project_final\repository\CategoryRepository.class
 com\mycompany\spring_mvc_project_final\service\ImageService.class
-com\mycompany\spring_mvc_project_final\controller\EmailController.class
 com\mycompany\spring_mvc_project_final\enums\PaymentStatus.class
 com\mycompany\spring_mvc_project_final\repository\AccountBankingRepository.class
 com\mycompany\spring_mvc_project_final\service\OrderDetailsService.class

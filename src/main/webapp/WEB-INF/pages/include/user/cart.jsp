@@ -46,6 +46,7 @@ c
                                         <!-- ---------------    //-->
                                         <div class="product_quantity_container" style="padding: 0">  
                                             <select onblur="updateSizeCart(this, ${c.productId})" required name="size" id="size">
+                                                
                                                 <c:forEach items="${listSize}" var="size">
                                                     <option <c:if test="${size.size == c.size}">selected</c:if> value="${size.size}">${size.size}</option>
                                                 </c:forEach>

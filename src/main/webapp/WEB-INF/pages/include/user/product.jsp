@@ -71,7 +71,7 @@
                         <ul class="d-flex flex-row align-items-start justify-content-start">
                             <c:forEach var="color" items="${uniqueColor}">
                                 <li>
-                                    <input onclick="updateColorCart(this, ${c.productId})" type="radio" id="radio_${color}" name="product_radio1" class="regular_radio radio_1" >
+                                    <input onclick="updateColorCart(this, ${product.productId})" type="radio" id="radio_${color}" name="product_radio_color" class="regular_radio radio_1" >
                                     <label id="colorLabel" for="radio_${color}">${color}</label>
                                 </li>  
                             </c:forEach>
@@ -82,7 +82,7 @@
                         <ul class="d-flex flex-row align-items-start justify-content-start">
                             <c:forEach var="size" items="${uniqueSize}">
                                 <li>
-                                    <input onclick="updateSizeCart(this, ${c.productId})" type="radio" id="radio_${size}" name="product_radio2" class="regular_radio radio_2">
+                                    <input onclick="updateSizeCart(this, ${product.productId})" type="radio" id="radio_${size}" name="product_radio_size" class="regular_radio radio_2">
                                     <label id="sizeLabel" for="radio_${size}">${size}</label>
                                 </li>  
                             </c:forEach>
@@ -97,7 +97,7 @@
                                     <span class="fa fa-minus"></span>
                                 </button>
                             </span>
-                            <input id="quantityUpdate" onblur="updateQuantityCart(this, ${c.productId})" type="text" name="quant[1]" style="color: green" class="form-control input-number number_input_button" value="1" min="1" max="2000">
+                            <input id="quantityUpdate" onblur="updateQuantityCart(this, ${product.productId})" type="text" name="quant[1]" style="color: green" class="form-control input-number number_input_button" value="1" min="1" max="2000">
                             <span class="input-group-append">
                                 <button type="button" class="btn btn-outline-secondary btn-number number_input_button" data-type="plus" data-field="quant[1]">
                                     <span class="fa fa-plus"></span>
@@ -115,6 +115,9 @@
                             </div>
                             <div class="product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
                                 <div><div><a href="#" onclick="addToCartFull(${product.productId}, `${product.productName}`,${product.price})"><img src="<c:url value="/resources/images/cart.svg" />" class="svg" alt=""></a><div>+</div></div></div>
+                            </div>
+                            <div class="product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
+                                <div class=button button_continue trans_200"><a style="text-decoration: none; color: white" href="/littleshop/cart" onclick="buyNow(${product.productId}, `${product.productName}`,${product.price})">Buy Now</a></div>
                             </div>
                         </div>
                     </div>

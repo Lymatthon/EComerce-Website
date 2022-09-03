@@ -53,10 +53,49 @@
                     event.stopPropagation();
                 }
 
-                // if validation passed form
-                // would post to the server here
-
                 form.addClass('was-validated');
+            });
+            $(document).ready(function () {
+                $("#show_hide_password a").on('click', function (event1) {
+                    event1.preventDefault();
+                    if ($('#show_hide_password input').attr("type") === "text") {
+                        $('#show_hide_password input').attr('type', 'password');
+                        $('#show_hide_password i').addClass("fa-eye-slash");
+                        $('#show_hide_password i').removeClass("fa-eye");
+                    } else if ($('#show_hide_password input').attr("type") === "password") {
+                        $('#show_hide_password input').attr('type', 'text');
+                        $('#show_hide_password i').removeClass("fa-eye-slash");
+                        $('#show_hide_password i').addClass("fa-eye");
+                    }
+                });
+            });
+            $(document).ready(function () {
+                $("#show_hide_password_2 a").on('click', function (event1) {
+                    event1.preventDefault();
+                    if ($('#show_hide_password_2 input').attr("type") === "text") {
+                        $('#show_hide_password_2 input').attr('type', 'password');
+                        $('#show_hide_password_2 i').addClass("fa-eye-slash");
+                        $('#show_hide_password_2 i').removeClass("fa-eye");
+                    } else if ($('#show_hide_password_2 input').attr("type") === "password") {
+                        $('#show_hide_password_2 input').attr('type', 'text');
+                        $('#show_hide_password_2 i').removeClass("fa-eye-slash");
+                        $('#show_hide_password_2 i').addClass("fa-eye");
+                    }
+                });
+            });
+            $(document).ready(function () {
+                $("#show_hide_password_1 a").on('click', function (event1) {
+                    event1.preventDefault();
+                    if ($('#show_hide_password_1 input').attr("type") === "text") {
+                        $('#show_hide_password_1 input').attr('type', 'password');
+                        $('#show_hide_password_1 i').addClass("fa-eye-slash");
+                        $('#show_hide_password_1 i').removeClass("fa-eye");
+                    } else if ($('#show_hide_password_1 input').attr("type") === "password") {
+                        $('#show_hide_password_1 input').attr('type', 'text');
+                        $('#show_hide_password_1 i').removeClass("fa-eye-slash");
+                        $('#show_hide_password_1 i').addClass("fa-eye");
+                    }
+                });
             });
         </script>
     </body>
