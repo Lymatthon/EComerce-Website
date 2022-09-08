@@ -62,9 +62,8 @@ public class UserController {
         Long id = account.getId();
         Account accountAfterUpdate = new Account();
         accountService.updateUser(account);
-
+        // update user trong session
         accountAfterUpdate = accountService.getUserById(id);
-
         session.removeAttribute("currentUser");
         session.setAttribute("currentUser", accountAfterUpdate);
 

@@ -52,5 +52,11 @@ public class ColorService {
          Long id = colorRepo.findColorIdByColor(color);
          return id;
      }
+//     
+//     @Transactional
+//     public Long getColorIdByColor(String color){
+//         Long id = colorRepo.findColorIdByColor(color);
+//         return id;
+//     }
     
 }

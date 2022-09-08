@@ -1530,3 +1530,7 @@ input[type=button] {
 {
     float: right;
 }
+.radio_form {
+    height: 25px;
+    
+}

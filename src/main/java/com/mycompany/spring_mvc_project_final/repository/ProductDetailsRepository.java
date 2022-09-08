@@ -17,7 +17,15 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProductDetailsRepository extends CrudRepository<ProductDetail, Long> {
 
-    @Query(value = "select sizeId from productdetail\n"
-            + " where productId = ?1 and colorId = ?2;", nativeQuery = true)
-    List<Long> findSizeIdByProductIdAndColorId(Long productId, Long colorId);
+    @Query(value = "select * from productdetail\n"
+            + " where productId = ?1 and colorId = ?2", nativeQuery = true)
+    List<ProductDetail> findPDsByProductIdAndColorId(Long productId, Long colorId);
+    
+    @Query(value = "select * from productdetail\n"
+            + " where productId = ?1 and colorId = ?2 and sizeId = ?3", nativeQuery = true)
+    ProductDetail findPDsByProductIdAndColorIdAndSizeId(Long productId, Long colorId, Long sizeId);
+    
+    @Query(value = "select * from productdetail\n"
+            + " where productId = ?1 and sizeId = ?2", nativeQuery = true)
+    List<ProductDetail> findPDsByProductIdAndSizeId(Long productId, Long sizeId);
 }

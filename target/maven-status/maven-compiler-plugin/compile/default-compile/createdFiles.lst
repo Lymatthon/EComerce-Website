@@ -21,6 +21,7 @@ com\mycompany\spring_mvc_project_final\entities\RoleEntity.class
 com\mycompany\spring_mvc_project_final\handler\LoginSuccessHandler.class
 com\mycompany\spring_mvc_project_final\service\AccountBankingService.class
 com\mycompany\spring_mvc_project_final\entities\SizeEntity.class
+com\mycompany\spring_mvc_project_final\entities\AccountDTO.class
 com\mycompany\spring_mvc_project_final\main\Main.class
 com\mycompany\spring_mvc_project_final\repository\PaymentRepository.class
 com\mycompany\spring_mvc_project_final\repository\ProductRepository.class

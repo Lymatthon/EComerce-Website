@@ -12,6 +12,7 @@ import java.io.Serializable;
  */
 public class CartDTO implements Serializable {
     private Long productId;
+    private Long pDId;
     private String productName;
     private double price;
     private int quantity;
@@ -21,6 +22,14 @@ public class CartDTO implements Serializable {
     private int discount;
 
     public CartDTO() {
+    }
+
+    public Long getpDId() {
+        return pDId;
+    }
+
+    public void setpDId(Long pDId) {
+        this.pDId = pDId;
     }
     
     public int getDiscount() {

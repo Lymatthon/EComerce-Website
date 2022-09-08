@@ -10,7 +10,7 @@ public class Customer implements Serializable {
     @Column(nullable = false, length = 50)
     private String customerName;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = true, length = 100)
     private String address;
 
     @Column(nullable = false, length = 10)

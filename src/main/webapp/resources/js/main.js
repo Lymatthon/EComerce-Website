@@ -1,14 +1,16 @@
 /* global fetch */
 
 function addToCart(id, name, price) {
-    event.preventDefault();
     fetch("/littleshop/api/cart", {
         method: 'post',
         body: JSON.stringify({
             "productId": id,
             "productName": name,
             "price": price,
-            "quantity": 1
+            "quantity": quantitySelected,
+            "color": colorSelected,
+            "size": sizeSelected
+
         }),
         headers: {
             "Content-Type": "application/json"
@@ -19,12 +21,15 @@ function addToCart(id, name, price) {
         let counter = document.getElementById("cartCounter");
         counter.innerText = data;
     });
+
 }
-function updateQuantityCart(obj, productId) {
+function updateQuantityCart(obj, productId, pdId) {
+    quantitySelected = obj.value;
     fetch("/littleshop/api/updateQuantity", {
         method: 'put',
         body: JSON.stringify({
             "productId": productId,
+            "pDId": pdId,
             "productName": "",
             "price": 0,
             "quantity": obj.value
@@ -58,53 +63,9 @@ function updateCouponCart(obj, productId) {
         location.reload();
     });
 }
-///
-function updateColorCart(obj, productId) {
-    fetch("/littleshop/api/updateColor", {
-        method: 'put',
-        body: JSON.stringify({
-            "productId": productId,
-            "productName": "",
-            "price": 0,
-            "quantity": 0,
-            "color": obj.value,
-            "size": ""
-        }),
-        headers: {
-            "Content-Type": "application/json"
-        }
-    }).then(function (res) {
-        return res.json();
-    }).then(function (code) {
-        console.log(code);
-    });
 
-}
-///
-///
-function updateSizeCart(obj, productId) {
-    fetch("/littleshop/api/updateSize", {
-        method: 'put',
-        body: JSON.stringify({
-            "productId": productId,
-            "productName": "",
-            "price": 0,
-            "quantity": 0,
-            "color": "",
-            "size": obj.value
-        }),
-        headers: {
-            "Content-Type": "application/json"
-        }
-    }).then(function (res) {
-        return res.json();
-    }).then(function (code) {
-        console.log(code);
-    });
-}
-///
-function deleteCart(productId) {
-    fetch(`/littleshop/api/cart/${productId}`, {
+function deleteCart(productId, pDId) {
+    fetch(`/littleshop/api/cart/${productId}/${pDId}`, {
         method: "delete"
     }).then(function (res) {
         return res.json();
@@ -116,37 +77,17 @@ function deleteCart(productId) {
         location.reload();
     });
 }
-function updateSizeByColor(obj, productId){
-    fetch("/littleshop/api/updateSizeByColor", {
-        method: 'post',
-        body: JSON.stringify({
-            "productId": productId,
-            "color": obj.value           
-        }),
-        headers: {
-            "Content-Type": "application/json"
-        }
-    }).then(function (res) {
-        return res.json();
-    }).then(function (data) {
-        console.log(data);
-    });
-}
-function addToCartFull(id, name, price) {
-    event.preventDefault();
-    var color = document.getElementsByName("product_radio_color") .value;
-    var size = document.getElementsByName("product_radio_size").value;
-    var quantity = document.getElementById("quantityUpdate").value;
-    
-    fetch("/littleshop/api/cartFull", {
+
+
+function getQuantityByColor(id, obj) {
+    colorSelected = obj.value;
+//    let size = document.getElementById("selectSize");
+    fetch("/littleshop/api/getQuantityByColor", {
         method: 'post',
         body: JSON.stringify({
             "productId": id,
-            "productName": name,
-            "price": price,
-            "quantity": quantity,
-            "color": color,
-            "size": size
+            "color": obj.value,
+            "size": sizeSelected
         }),
         headers: {
             "Content-Type": "application/json"
@@ -154,24 +95,25 @@ function addToCartFull(id, name, price) {
     }).then(function (res) {
         return res.json();
     }).then(function (data) {
-        let counter = document.getElementById("cartCounter");
-        counter.innerText = data;
+        let counter2 = document.getElementById("countQuantity");
+        counter2.innerText = data;
+        if (data == 0) {
+            disableButton(true);
+        } else {
+            disableButton(false);
+            document.getElementById("quantityUpdate").max = data;
+        }
     });
 }
-function buyNow(id, name, price) {
-    var color = document.getElementsByName("product_radio_color") .value;
-    var size = document.getElementsByName("product_radio_size").value;
-    var quantity = document.getElementById("quantityUpdate").value;
-    
-    fetch("/littleshop/api/cartFull", {
+function getQuantityBySize(id, obj) {
+    sizeSelected = obj.value;
+    let color = $('selectColor li input').val();
+    fetch("/littleshop/api/getQuantityBySize", {
         method: 'post',
         body: JSON.stringify({
             "productId": id,
-            "productName": name,
-            "price": price,
-            "quantity": quantity,
-            "color": color,
-            "size": size
+            "color": colorSelected,
+            "size": obj.value
         }),
         headers: {
             "Content-Type": "application/json"
@@ -179,8 +121,40 @@ function buyNow(id, name, price) {
     }).then(function (res) {
         return res.json();
     }).then(function (data) {
-        let counter = document.getElementById("cartCounter");
-        counter.innerText = data;
+        let counter1 = document.getElementById("countQuantity");
+        counter1.innerText = data;
+        if (data == 0) {
+            disableButton(true);
+        } else {
+            disableButton(false);
+            document.getElementById("quantityUpdate").max = data;
+        }
     });
 }
 
+var quantitySelected = 1;
+var colorSelected = "";
+var sizeSelected = "";
+
+
+function validateOnAddCart(id, name, price) {
+    event.preventDefault();
+    if (colorSelected === "" || sizeSelected === "") {
+        alert("Please select size and color!");
+    } else {
+        addToCart(id, name, price);
+    }
+}
+
+function disableButton(flag) {
+    if (flag == true) {
+        document.getElementById("minusButton").disabled = true;
+        document.getElementById("plusButton").disabled = true;
+        document.getElementById("quantityUpdate").disabled = true;
+        document.getElementById("quantityUpdate").value = 1;
+    } else {
+        document.getElementById("minusButton").disabled = false;
+        document.getElementById("plusButton").disabled = false;
+        document.getElementById("quantityUpdate").disabled = false;
+    }
+}

@@ -5,12 +5,11 @@ import com.mycompany.spring_mvc_project_final.entities.Product;
 import com.mycompany.spring_mvc_project_final.entities.ProductDetail;
 import com.mycompany.spring_mvc_project_final.service.CategoryService;
 import com.mycompany.spring_mvc_project_final.service.ColorService;
+import com.mycompany.spring_mvc_project_final.service.ProductDetailsService;
 import com.mycompany.spring_mvc_project_final.service.ProductService;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,9 +27,9 @@ public class ProductController {
 
     @Autowired
     CategoryService cateService;
-    
+
     @Autowired
-    ColorService colorService;
+    ProductDetailsService pdService;
 
     @RequestMapping(value = "/product/category/{categoryId}")
     public String viewProductByCategory(Model model, @PathVariable("categoryId") Long categoryId) {
@@ -46,21 +45,22 @@ public class ProductController {
         model.addAttribute("productBestSelling", products);
         return "user/page-product-best-selling";
     }
-    
+
     @RequestMapping(value = "/product/details/{productId}")
     public String viewProductDetails(Model model, @PathVariable("productId") Long productId) {
-        List<String> sizeList =new ArrayList<>();
-        List<String> colorList =new ArrayList<>();        
+        List<String> sizeList = new ArrayList<>();
+        List<String> colorList = new ArrayList<>();
         Product product = productService.getProduct(productId);
         List<ProductDetail> listProductDetails = product.getpDetails();
         // Get unique color/size
-        for(ProductDetail p : listProductDetails){
+        for (ProductDetail p : listProductDetails) {
             colorList.add(p.getColor().getColor());
-            sizeList.add(p.getSize().getSize());            
+            sizeList.add(p.getSize().getSize());
         }
         Set<String> uniqueSize = new HashSet<String>(sizeList);
         Set<String> uniqueColor = new HashSet<String>(colorList);
         model.addAttribute("product", product);
+        model.addAttribute("countQuantityProduct", pdService.countQuantityOfProduct(listProductDetails));
         model.addAttribute("listProductDetails", listProductDetails);
         model.addAttribute("uniqueSize", uniqueSize);
         model.addAttribute("uniqueColor", uniqueColor);
@@ -68,7 +68,7 @@ public class ProductController {
     }
 
     @GetMapping(value = "/search")
-    public String searchProduct(@RequestParam("keyword") String keyword, Model model ){
+    public String searchProduct(@RequestParam("keyword") String keyword, Model model) {
         List<Product> listProductBySearch = productService.getProductBySearch(keyword);
         model.addAttribute("listProductBySearch", listProductBySearch);
         return "user/page-product-by-search";

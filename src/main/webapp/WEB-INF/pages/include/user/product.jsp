@@ -68,21 +68,25 @@
                     </div>
                     <div class="product_color" style="padding-top: 0px">
                         <div class="product_color_title">Select Color</div>
-                        <ul class="d-flex flex-row align-items-start justify-content-start">
+                        
+                        
+                        
+                        <ul id="selectColor" class="d-flex flex-row align-items-start justify-content-start">
                             <c:forEach var="color" items="${uniqueColor}">
                                 <li>
-                                    <input onclick="updateColorCart(this, ${product.productId})" type="radio" id="radio_${color}" name="product_radio_color" class="regular_radio radio_1" >
+                                    <input onclick="getQuantityByColor(${product.productId}, this)" value="${color}" type="radio" id="radio_${color}" name="product_radio_color" class="regular_radio radio_1" >
                                     <label id="colorLabel" for="radio_${color}">${color}</label>
                                 </li>  
                             </c:forEach>
-                        </ul>
+                        </ul>       
+                        
                     </div>
                     <div class="product_size" style="padding-top: 0px">
                         <div class="product_size_title">Select Size</div>
-                        <ul class="d-flex flex-row align-items-start justify-content-start">
+                        <ul id="selectSize" class="d-flex flex-row align-items-start justify-content-start">
                             <c:forEach var="size" items="${uniqueSize}">
                                 <li>
-                                    <input onclick="updateSizeCart(this, ${product.productId})" type="radio" id="radio_${size}" name="product_radio_size" class="regular_radio radio_2">
+                                    <input onclick="getQuantityBySize(${product.productId}, this)" value="${size}" type="radio" id="radio_${size}" name="product_radio_size" class="regular_radio radio_2">
                                     <label id="sizeLabel" for="radio_${size}">${size}</label>
                                 </li>  
                             </c:forEach>
@@ -91,18 +95,26 @@
                     <div class="product_color" style="padding-top: 0px">
                         <div class="product_color_title">Select Quantity</div>
                         <br/>
-                        <div class="d-flex flex-row align-items-start justify-content-start input-group" style="width: 150px">
+                        <div class="d-flex flex-row align-items-start justify-content-start input-group" style="width: 150px" id="inputGroup">
                             <span class="input-group-prepend">
-                                <button type="button" class="btn btn-outline-secondary btn-number number_input_button" disabled="disabled" data-type="minus" data-field="quant[1]">
+                                <button type="button" class="btn btn-outline-secondary btn-number number_input_button" id="minusButton" disabled="disabled" data-type="minus" data-field="quant[1]">
                                     <span class="fa fa-minus"></span>
                                 </button>
                             </span>
-                            <input id="quantityUpdate" onblur="updateQuantityCart(this, ${product.productId})" type="text" name="quant[1]" style="color: green" class="form-control input-number number_input_button" value="1" min="1" max="2000">
+                            <input id="quantityUpdate" onchange ="updateQuantityCart(this, ${product.productId})" type="text" name="quant[1]" style="color: green" class="form-control input-number number_input_button" value="1" min="1" max="${countQuantityProduct}">
                             <span class="input-group-append">
-                                <button type="button" class="btn btn-outline-secondary btn-number number_input_button" data-type="plus" data-field="quant[1]">
+                                <button type="button" class="btn btn-outline-secondary btn-number number_input_button" id="plusButton" data-type="plus" data-field="quant[1]">
                                     <span class="fa fa-plus"></span>
                                 </button>
                             </span>
+                            <br>
+                            <br>
+                            <br>
+                            <span style="font-style: italic; color: green; border: none; display: inline-flex">
+                            <span id="countQuantity">${countQuantityProduct}</span>  
+                            <input type="text" readonly="true" style="font-style: italic; color: green; border: none; display: inline" value=" pieces available" >
+                                </span>
+                            
                         </div>
                     </div>
 
@@ -114,10 +126,10 @@
                                 <div><div><img src="<c:url value="/resources/images/heart_2.svg" />" class="svg" alt=""/><div>+</div></div></div>
                             </div>
                             <div class="product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
-                                <div><div><a href="#" onclick="addToCartFull(${product.productId}, `${product.productName}`,${product.price})"><img src="<c:url value="/resources/images/cart.svg" />" class="svg" alt=""></a><div>+</div></div></div>
+                                <div><div><a href="#" onclick="validateOnAddCart(${product.productId}, `${product.productName}`,${product.price})"><img src="<c:url value="/resources/images/cart.svg" />" class="svg" alt=""></a><div>+</div></div></div>
                             </div>
                             <div class="product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
-                                <div class=button button_continue trans_200"><a style="text-decoration: none; color: white" href="/littleshop/cart" onclick="buyNow(${product.productId}, `${product.productName}`,${product.price})">Buy Now</a></div>
+                                <div class=button button_continue trans_200"><a style="text-decoration: none; color: white" href="/littleshop/cart" onclick="validateOnAddCart(${product.productId}, `${product.productName}`,${product.price})">Buy Now</a></div>
                             </div>
                         </div>
                     </div>

@@ -9,6 +9,7 @@ import com.mycompany.spring_mvc_project_final.service.AccountService;
 import com.mycompany.spring_mvc_project_final.service.CategoryService;
 import com.mycompany.spring_mvc_project_final.service.ProductService;
 import com.mycompany.spring_mvc_project_final.utils.Utils;
+import com.sun.mail.handlers.message_rfc822;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -28,6 +29,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @ControllerAdvice
@@ -38,17 +40,17 @@ public class HomeController {
 
     @Autowired
     AccountService accountService;
-    
+
     @Autowired
     CategoryService cateService;
-    
+
     @ModelAttribute
     public void commonAttribute(Model model, HttpSession session) {
         List<Category> cates = cateService.getCategories();
         model.addAttribute("cates", cates);
         model.addAttribute("cartCounter", Utils.countCart((Map<Long, CartDTO>) session.getAttribute("cart")));
     }
-    
+
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
     public String welcomePage(Model model) {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -56,12 +58,12 @@ public class HomeController {
         if (principal instanceof UserDetails) {
             username = ((UserDetails) principal).getUsername();
         }
-        
+
         List<Product> listProduct = productService.getProducts();
         List<Product> listNewestProduct = productService.getNewestProduct();
         double minPrice = listNewestProduct.get(0).getPrice();
-        for(Product p: listNewestProduct){
-            if(p.getPrice() < minPrice){
+        for (Product p : listNewestProduct) {
+            if (p.getPrice() < minPrice) {
                 minPrice = p.getPrice();
                 p.getImages().size();
             }
@@ -88,16 +90,16 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String register(Model model, @ModelAttribute(value = "user") Account user) {
+    public String register(Model model, @ModelAttribute(value = "user") Account user, RedirectAttributes redirectAttributes) {
         String errMsg = "";
-        if (!user.getPassword()
-                .isEmpty() || user.getPassword().equals(user.getConfirmPassword())) {
+        
+        if (checkEmailUnique(user.getEmail())) {            
             accountService.addUser(user);
             return "redirect:/login";
         } else {
-            errMsg = "Mat khau khong dung, vui long nhap lai!";
-            model.addAttribute("errMsg", errMsg);
-            return "/register";
+            errMsg = "This email address is already being used!";
+            redirectAttributes.addFlashAttribute("errMsg", errMsg);
+            return "redirect:/register";
         }
     }
 
@@ -118,7 +120,7 @@ public class HomeController {
     public String login() {
         return "user/page-login";
     }
-    
+
     @RequestMapping(value = "/logout")
     public String logout() {
         return "/";
@@ -129,8 +131,6 @@ public class HomeController {
         return "user/page-checkout";
     }
 
-
-
     @RequestMapping("/403")
     public String accessDenied(Model model) {
         return "403Page";
@@ -138,8 +138,8 @@ public class HomeController {
 
     private String doUpload(HttpServletRequest request, Model model, Image image) {
 //        String uploadRootPath = request.getServletContext().getRealPath("/resources/image");
-        String uploadRootPath = "D:\\DO AN 2022\\EComerce-Website\\src\\main\\webapp\\resources\\image";        
-        
+        String uploadRootPath = "D:\\DO AN 2022\\EComerce-Website\\src\\main\\webapp\\resources\\image";
+
         File uploadRootDir = new File(uploadRootPath);
         // Tạo thư mục gốc upload nếu nó không tồn tại.
         if (!uploadRootDir.exists()) {
@@ -166,10 +166,15 @@ public class HomeController {
                 }
             }
         }
-        for(File f : uploadedFiles){
+        for (File f : uploadedFiles) {
             f.getName();
         }
         model.addAttribute("uploadedFiles", uploadedFiles);
         return "multipart/viewFile";
+    }
+
+    private boolean checkEmailUnique(String email) {
+        List<Account> accList = accountService.getAccountByEmail(email);
+        return accList == null || accList.isEmpty();
     }
 }

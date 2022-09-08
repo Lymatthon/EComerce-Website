@@ -5,10 +5,10 @@
 package com.mycompany.spring_mvc_project_final.service;
 
 import com.mycompany.spring_mvc_project_final.entities.Account;
+import com.mycompany.spring_mvc_project_final.entities.AccountDTO;
 import com.mycompany.spring_mvc_project_final.entities.CartDTO;
 import com.mycompany.spring_mvc_project_final.entities.OrderDetail;
 import com.mycompany.spring_mvc_project_final.entities.OrderEntity;
-import com.mycompany.spring_mvc_project_final.entities.Product;
 import com.mycompany.spring_mvc_project_final.entities.Promotion;
 import com.mycompany.spring_mvc_project_final.enums.OrderStatus;
 import com.mycompany.spring_mvc_project_final.repository.OrderDetailsRepository;
@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.http.HttpSession;
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,10 +50,9 @@ public class OrderService {
     PromotionService proS;
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public OrderEntity saveReceipt(Map<Long, CartDTO> cart, Long userId, OrderStatus status) {
+    public OrderEntity saveReceipt(Map<Long, CartDTO> cart, Account userAcount, OrderStatus status, AccountDTO accDTO) {
         try {
             if (cart != null) {
-                Account userAcount = userService.getAccount(userId);
                 List<Promotion> listCoupon = new ArrayList<>();
                 String codePromotion = "";
                 int discount = 0;
@@ -66,11 +66,11 @@ public class OrderService {
                 order.setDateCreate(new Date());
                 order.setStatus(status);
                 order.setDiscount(discount);
-                order.setCustomerName(userAcount.getCustomerName());
+                order.setCustomerName(accDTO.getFullname());
                 order.setCode(codePromotion);
-                order.setAddress(userAcount.getAddress());
-                order.setGender(userAcount.getGender());
-                order.setPhone(userAcount.getPhone());
+                order.setAddress(accDTO.getAddress());
+                order.setGender(accDTO.getGender());
+                order.setPhone(accDTO.getPhone());
                 order.setPromotions(listCoupon);
                 if (codePromotion != null) {
                     listCoupon.add(proS.getPromotionByCode(codePromotion));

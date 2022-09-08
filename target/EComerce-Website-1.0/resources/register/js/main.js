@@ -13,15 +13,21 @@
 
 })(jQuery);
 
-function checkValid() {
-    var cbChecked = $("#agree-term").is(":checked");
-    $("#submit").prop("disabled", !cbChecked);
-}
-
-$(function () {
-    checkValid(); // run it for the first time
-    $("#agree-term").on("change", checkValid);
-});
+//function checkValid() {
+//    if(!isFormValid){
+//        $("#submit").prop("disabled", !isFormValid); 
+//    } else {
+//        $("#submit").removeAttr("disabled");
+//    }
+//       
+//
+//}
+//
+//$(function () {
+//    checkValid();
+////$("#agree-term").on("change", checkValid);
+//    $("#submit").click(checkValid);
+//});
 ////////Validate form
 
 const usernameEl = document.querySelector('#name');
@@ -30,7 +36,7 @@ const passwordEl = document.querySelector('#password');
 const confirmPasswordEl = document.querySelector('#confirmPassword');
 const addressEl = document.querySelector('#address');
 const phoneEl = document.querySelector('#phone');
-const genderEl = document.querySelector('#gender');
+const genderEl = document.querySelector('input[name="gender"]');
 const form = document.querySelector('#signup-form');
 
 
@@ -72,39 +78,44 @@ const checkPhone = () => {
 const checkGender = () => {
 
     let valid = false;
+    let flag = false;
 
-    const gender = genderEl.value.trim();
-
-    if (!isRequired(gender)) {
-        showError(genderEl, 'Gender cannot be blank.');
+    if ($("#gender1").is(":checked") || $("#gender2").is(":checked")) {
+        flag = true;
+    }
+    if (!flag) {
+        showErrorGender(genderEl, 'Gender cannot be blank.');
     } else {
-        showSuccess(genderEl);
+        showSuccessGender(genderEl);
         valid = true;
     }
+    console.log(valid);
     return valid;
 };
 
 
 
-const checkAddress = () => {
 
-    let valid = false;
 
-    const min = 5,
-            max = 100;
-
-    const address = addressEl.value.trim();
-
-    if (!isRequired(address)) {
-        showError(addressEl, 'Address cannot be blank.');
-    } else if (!isBetween(address.length, min, max)) {
-        showError(addressEl, `Address must be between ${min} and ${max} characters.`);
-    } else {
-        showSuccess(addressEl);
-        valid = true;
-    }
-    return valid;
-};
+//const checkAddress = () => {
+//
+//    let valid = false;
+//
+//    const min = 5,
+//            max = 100;
+//
+//    const address = addressEl.value.trim();
+//
+//    if (!isRequired(address)) {
+//        showError(addressEl, 'Address cannot be blank.');
+//    } else if (!isBetween(address.length, min, max)) {
+//        showError(addressEl, `Address must be between ${min} and ${max} characters.`);
+//    } else {
+//        showSuccess(addressEl);
+//        valid = true;
+//    }
+//    return valid;
+//};
 
 
 const checkEmail = () => {
@@ -177,7 +188,8 @@ const isBetween = (length, min, max) => length < min || length > max ? false : t
 
 const showError = (input, message) => {
     // get the form-field element
-    const formField = input.parentElement;
+    const formField = input.parentNode;
+    
     // add the error class
     formField.classList.remove('success');
     formField.classList.add('error');
@@ -199,33 +211,64 @@ const showSuccess = (input) => {
     const error = formField.querySelector('small');
     error.textContent = '';
 };
+const showErrorGender = (input, message) => {
+    // get the form-field element
+    const f = input.parentElement;
+    const formField = f.parentNode;
+    // add the error class
+    formField.classList.remove('success');
+    formField.classList.add('error');
+
+    // show the error message
+    const error = formField.querySelector('small');
+    error.textContent = message;
+};
+
+const showSuccessGender = (input) => {
+    // get the form-field element
+    const f = input.parentNode;
+    const formField = f.parentNode;
+
+    // remove the error class
+    formField.classList.remove('error');
+    formField.classList.add('success');
+
+    // hide the error message
+    const error = formField.querySelector('small');
+    error.textContent = '';
+};
 
 
-form.addEventListener('submit', function (e) {
-    // prevent the form from submitting
+function checkValidForm() {
+    
 
     // validate fields
     let isUsernameValid = checkUsername(),
             isEmailValid = checkEmail(),
             isPasswordValid = checkPassword(),
             isConfirmPasswordValid = checkConfirmPassword(),
-            isAddressValid = checkAddress(),
-            isPhoneValid = checkPhone(),
-            isGenderValid = checkGender();
+//            isAddressValid = checkAddress(),
+            isGenderValid = checkGender(),
+            isPhoneValid = checkPhone();
 
-    let isFormValid = isUsernameValid &&
+    isFormValid = isUsernameValid &&
             isEmailValid &&
             isPasswordValid &&
-            isAddressValid &&
+//            isAddressValid &&
             isPhoneValid &&
             isGenderValid &&
             isConfirmPasswordValid;
 
     // submit to the server if the form is valid
-    if (isFormValid) {
-
+    if (!isFormValid) {
+        alert("Invalid information!");
+        event.preventDefault();
+    } else {
+        event.submit(); 
     }
-});
+};
+
+var isFormValid = false;
 
 
 const debounce = (fn, delay = 500) => {
@@ -247,15 +290,12 @@ form.addEventListener('input', debounce(function (e) {
         case 'name':
             checkUsername();
             break;
-        case 'address':
-            checkAddress();
-            break;
         case 'phone':
             checkPhone();
             break;
         case 'gender':
             checkGender();
-            break;    
+            break;
         case 'email':
             checkEmail();
             break;

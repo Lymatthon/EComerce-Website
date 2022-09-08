@@ -35,13 +35,54 @@ public class ProductDetailsService {
     }
 
     @Transactional
-    public List<Long> getSizeByColorIdAndProductId(Long productId, Long colorId) {
-        List<Long> colorIdList = pDetailsRepo.findSizeIdByProductIdAndColorId(productId, colorId);
-        if (colorIdList != null) {
+    public int getQuantityByProductIdAndColor(Long productId, Long colorId) {
+        List<ProductDetail> pDList = pDetailsRepo.findPDsByProductIdAndColorId(productId, colorId);
+        int sum = 0;
+        if (!pDList.isEmpty() || pDList != null) {
+            for (ProductDetail pd : pDList) {
+                sum += pd.getQuantity();
 
-            return colorIdList;
+            }
         }
-        return new ArrayList<>();
+        return sum;
+    }
 
+    @Transactional
+    public int getQuantityByProductIdAndColorAndSize(Long productId, Long colorId, Long sizeId) {
+        ProductDetail pD = pDetailsRepo.findPDsByProductIdAndColorIdAndSizeId(productId, colorId, sizeId);
+        int sum = 0;
+        if (pD != null) {
+            sum = pD.getQuantity();
+        }
+        return sum;
+    }
+
+    @Transactional
+    public int countQuantityOfProduct(List<ProductDetail> listPDs) {
+        int sum = 0;
+        if (listPDs != null || !listPDs.isEmpty()) {
+            for (ProductDetail pd : listPDs) {
+                sum += pd.getQuantity();
+            }
+        }
+        return sum;
+    }
+
+    @Transactional
+    public int getQuantityByProductIdAndSize(Long productId, Long sizeId) {
+        List<ProductDetail> pDList = pDetailsRepo.findPDsByProductIdAndSizeId(productId, sizeId);
+        int sum = 0;
+        if (!pDList.isEmpty() || pDList != null) {
+            for (ProductDetail pd : pDList) {
+                sum += pd.getQuantity();
+            }
+        }
+        return sum;
+    }
+    
+    @Transactional
+    public ProductDetail getPDsByProductIdAndColorAndSize(Long productId, Long colorId, Long sizeId) {
+        return pDetailsRepo.findPDsByProductIdAndColorIdAndSizeId(productId, colorId, sizeId);
+        
     }
 }

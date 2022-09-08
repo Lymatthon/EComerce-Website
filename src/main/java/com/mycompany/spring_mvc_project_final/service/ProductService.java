@@ -9,6 +9,7 @@ import com.mycompany.spring_mvc_project_final.entities.Product;
 import com.mycompany.spring_mvc_project_final.repository.ProductRepository;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,8 +58,8 @@ public class ProductService {
         List<Product> products = (List<Product>) productRepo.findNewestProduct();
         if (!CollectionUtils.isEmpty(products)) {
             for (Product c : products) {
-//                Hibernate.initialize(c.getpDetails());
-//                Hibernate.initialize(c.getOrderDetails());
+                Hibernate.initialize(c.getpDetails());
+                Hibernate.initialize(c.getOrderDetails());
                 Hibernate.initialize( c.getImages());
             }
             return products;
@@ -69,7 +70,9 @@ public class ProductService {
 
     @Transactional
     public List<Product> getBestSellingProduct() {
-        List<Product> products = (List<Product>) productRepo.findBestSellingProduct();
+        List<Long> listId = productRepo.findBestSellingProduct();
+        
+        List<Product> products = (List<Product>) productRepo.findAllById(listId);
         if (!CollectionUtils.isEmpty(products)) {
             for (Product c : products) {
                 Hibernate.initialize(c.getpDetails());

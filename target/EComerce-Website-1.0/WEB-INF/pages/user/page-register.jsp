@@ -26,12 +26,18 @@
 
                         <form:form method="POST" action="${action}" modelAttribute="user" id="signup-form" class="signup-form">
                             <h2 class="form-title">Create account</h2>
+                            <c:if test="${errMsg != null}">
+                                <div style="text-align: center">
+                                    <p style="text-decoration: firebrick; color: red">${errMsg}</p>
+                                </div>
+                                <br>
+                            </c:if>
                             <div class="form-group">
-                                <form:input class="form-input" path="customerName" id="name" placeholder="Name"/>
+                                <form:input class="form-input" path="customerName" id="name" placeholder="Name (*)"/>
                                 <small></small>
                             </div>
                             <div class="form-group">
-                                <form:input  class="form-input" path="email" id="email" placeholder="Email"/>
+                                <form:input  class="form-input" path="email" id="email" placeholder="Email (*)"/>
                                 <small></small>
                             </div>
                             <div class="form-group">
@@ -39,7 +45,7 @@
                                 <small></small>
                             </div>
                             <div class="form-group">
-                                <form:input  class="form-input" path="phone" id="phone" placeholder="Phone Number"/>
+                                <form:input  class="form-input" path="phone" id="phone" placeholder="Phone Number (*)"/>
                                 <small></small>
                             </div>
                             <div class="form-group" style="padding: 10px">                            
@@ -61,7 +67,7 @@
                                 <label for="agree-term" class="label-agree-term">By creating an account you agree to our <a href="#" class="term-service">Terms of service!</a></label>
                             </div>
                             <div class="form-group">
-                                <input type="submit" name="submit" id="submit" class="form-submit" value="Sign up"/>
+                                <input type="submit" onclick="checkValidForm()" name="submit" id="submit" class="form-submit" value="Sign up"/>
                             </div>
                         </form:form>
                         <p class="loginhere">

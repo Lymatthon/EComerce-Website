@@ -1,8 +1,12 @@
 package com.mycompany.spring_mvc_project_final.controller;
 
 import com.mycompany.spring_mvc_project_final.entities.CartDTO;
+import com.mycompany.spring_mvc_project_final.entities.ProductDetail;
 import com.mycompany.spring_mvc_project_final.entities.Promotion;
+import com.mycompany.spring_mvc_project_final.service.ColorService;
+import com.mycompany.spring_mvc_project_final.service.ProductDetailsService;
 import com.mycompany.spring_mvc_project_final.service.PromotionService;
+import com.mycompany.spring_mvc_project_final.service.SizeService;
 import com.mycompany.spring_mvc_project_final.utils.Utils;
 import java.util.Date;
 import java.util.HashMap;
@@ -30,44 +34,37 @@ public class APICartController {
     @Autowired
     PromotionService promotionS;
 
+    @Autowired
+    ProductDetailsService pdService;
+
+    @Autowired
+    ColorService colorS;
+
+    @Autowired
+    SizeService sizeS;
+
     @PostMapping(value = "/api/cart")
     public int addToCart(@RequestBody CartDTO params, HttpSession session) {
+        // innitial cart
         Map<Long, CartDTO> cart = (Map<Long, CartDTO>) session.getAttribute("cart");
         if (cart == null) {
             cart = new HashMap<>();
         }
-        Long productId = params.getProductId();
-        if (cart.containsKey(productId)) { // san pham da co trong gio
-            CartDTO c = cart.get(productId);
-            c.setQuantity(c.getQuantity() + 1);
-        } else {// san pham chua co trong gio
-            cart.put(productId, params);
-        }
-        session.setAttribute("cart", cart);
+        // tach ham rieng
 
-        return Utils.countCart(cart);
-    }
+        Long newId = getProductDetailsIDByParams(params);
 
-    @PostMapping(value = "/api/cartFull")
-    public int addToCartFull(@RequestBody CartDTO params, HttpSession session) {
-        Map<Long, CartDTO> cart = (Map<Long, CartDTO>) session.getAttribute("cart");
-        if (cart == null) {
-            cart = new HashMap<>();
-        }
-        Long productId = params.getProductId();
-        if (cart.containsKey(productId)) { // san pham da co trong gio
-            CartDTO c = cart.get(productId);
+        if (cart.containsKey(newId)) { // san pham da co trong gio
+            CartDTO c = cart.get(newId);
             c.setQuantity(c.getQuantity() + params.getQuantity());
-            c.setColor(params.getColor());
-            c.setSize(params.getSize());
         } else {// san pham chua co trong gio
-            cart.put(productId, params);
+            cart.put(newId, params);
         }
         session.setAttribute("cart", cart);
 
         return Utils.countCart(cart);
     }
-    
+
     @PutMapping(value = "/api/updateQuantity")
     @ResponseStatus(HttpStatus.OK)
     public int updateCartItem(@RequestBody CartDTO params, HttpSession session) {
@@ -75,9 +72,13 @@ public class APICartController {
         if (cart == null) {
             cart = new HashMap<>();
         }
+//        Long newId = getProductDetailsIDByParams(params);
         Long productId = params.getProductId();
-        if (cart.containsKey(productId)) { // san pham da co trong gio
-            CartDTO c = cart.get(productId);
+        Long productDId = params.getpDId();
+        Long newId = Long.parseLong(String.valueOf(productId) + String.valueOf(productDId));
+
+        if (cart.containsKey(newId)) { // san pham da co trong gio
+            CartDTO c = cart.get(newId);
             c.setQuantity(params.getQuantity());
         }
         session.setAttribute("cart", cart);
@@ -96,17 +97,16 @@ public class APICartController {
         }
         String couponGet = params.getCoupon();
         Date currentDate = new Date();
-        
-        
+
         for (Promotion p : promotionList) {
-                        
+
             if (p.getCode().equalsIgnoreCase(couponGet) && p.getPromotionType().equals("Order")) {
                 if (compareDate(p.getStartDate(), p.getEndDate(), currentDate)) {
-                    for(CartDTO c : cart.values()){
+                    for (CartDTO c : cart.values()) {
                         c.setCoupon(couponGet);
                         c.setDiscount(p.getDiscount());
                     }
-                    return HttpStatus.OK;                    
+                    return HttpStatus.OK;
                 }
             }
         }
@@ -115,64 +115,31 @@ public class APICartController {
         return HttpStatus.BAD_REQUEST;
     }
 
-    @PutMapping(value = "/api/updateColor")
-    public HttpStatus updateColorCart(@RequestBody CartDTO params, HttpSession session) {
+    @DeleteMapping(value = "/api/cart/{productId}/{pDId}")
+    public ResponseEntity<Map<String, String>> deleteCartItem(@PathVariable(value = "productId") Long productId, @PathVariable(value = "pDId") Long pDId, HttpSession session) {
         Map<Long, CartDTO> cart = (Map<Long, CartDTO>) session.getAttribute("cart");
-        if (cart == null) {
-            cart = new HashMap<>();
-        }
-        Long productId = params.getProductId();
-        if (cart.containsKey(productId)) { // san pham da co trong gio
-            CartDTO c = cart.get(productId);
-            c.setColor(params.getColor());
-            return HttpStatus.OK;
-        }
-        session.setAttribute("cart", cart);
+        Long newId = Long.parseLong(String.valueOf(productId) + String.valueOf(pDId));
 
-        return HttpStatus.BAD_REQUEST;
-    }
-
-    @PutMapping(value = "/api/updateSize")
-    public HttpStatus updateSizeCart(@RequestBody CartDTO params, HttpSession session) {
-        Map<Long, CartDTO> cart = (Map<Long, CartDTO>) session.getAttribute("cart");
-        if (cart == null) {
-            cart = new HashMap<>();
-        }
-        Long productId = params.getProductId();
-        if (cart.containsKey(productId)) { // san pham da co trong gio
-            CartDTO c = cart.get(productId);
-            c.setSize(params.getSize());
-            return HttpStatus.OK;
-        }
-        session.setAttribute("cart", cart);
-
-        return HttpStatus.BAD_REQUEST;
-    }
-
-    @DeleteMapping(value = "/api/cart/{productId}")
-    public ResponseEntity<Map<String, String>> deleteCartItem(@PathVariable(value = "productId") Long productId, HttpSession session) {
-        Map<Long, CartDTO> cart = (Map<Long, CartDTO>) session.getAttribute("cart");
-        if (cart != null && cart.containsKey(productId)) {
-            cart.remove(productId);
+        if (cart != null && cart.containsKey(newId)) {
+            cart.remove(newId);
             session.setAttribute("cart", cart);
         }
 
         return new ResponseEntity<>(Utils.cartStats(cart), HttpStatus.OK);
     }
 
-//    @PostMapping("/api/pay")
-//    public HttpStatus pay(HttpSession session) {
-//        Account account = (Account) session.getAttribute("currentUser");
-//        Long userId = account.getId();
-//        if (this.orderService.saveReceipt((Map<Long, CartDTO>) session.getAttribute("cart"), userId) == true) {
-//            session.removeAttribute("cart");//luu cart thanh order => xoa
-//            return HttpStatus.OK;
-//        }
-//        return HttpStatus.BAD_REQUEST;
-//    }
-
     private boolean compareDate(Date date1, Date date2, Date dateCompare) {
         return dateCompare.before(date2) || dateCompare.after(date1);
+    }
+
+    private Long getProductDetailsIDByParams(CartDTO params) {
+        Long productId = params.getProductId();
+        Long colorId = colorS.getColorIdByColor(params.getColor());
+        Long sizeId = sizeS.getSizeIdBySize(params.getSize());
+        ProductDetail pDFound = pdService.getPDsByProductIdAndColorAndSize(productId, colorId, sizeId);
+        Long productDId = pDFound.getpDetailId();
+        params.setpDId(productDId);
+        return Long.parseLong(String.valueOf(productId) + String.valueOf(productDId));
     }
 
 }

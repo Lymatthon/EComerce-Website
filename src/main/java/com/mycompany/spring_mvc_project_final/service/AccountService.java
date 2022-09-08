@@ -5,6 +5,7 @@
 package com.mycompany.spring_mvc_project_final.service;
 
 import com.mycompany.spring_mvc_project_final.entities.Account;
+import com.mycompany.spring_mvc_project_final.entities.AccountDTO;
 import com.mycompany.spring_mvc_project_final.entities.RoleEntity;
 import com.mycompany.spring_mvc_project_final.enums.UserStatus;
 import com.mycompany.spring_mvc_project_final.repository.AccountRepository;
@@ -97,5 +98,19 @@ public class AccountService {
         accountRpo.updateAccount(address, username, gender, phone, id);
 
     }
+    
+    
+    public AccountDTO parseToDTO(Account acc) {
+        AccountDTO accDTO = new AccountDTO();
+        accDTO.setAddress(acc.getAddress());
+        accDTO.setEmail(acc.getEmail());
+        accDTO.setPhone(acc.getPhone());
+        accDTO.setFullname(acc.getCustomerName());
+        accDTO.setGender(acc.getGender());
+        accDTO.setId(acc.getId());
+            return accDTO;
+
+    }
+    
 
 }
