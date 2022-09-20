@@ -20,6 +20,7 @@ function addToCart(id, name, price) {
     }).then(function (data) {
         let counter = document.getElementById("cartCounter");
         counter.innerText = data;
+//        location.reload();
     });
 
 }
@@ -146,6 +147,15 @@ function validateOnAddCart(id, name, price) {
     }
 }
 
+function validateOnSubmit(id, name, price) {
+    event.preventDefault();
+    if (colorSelected === "" || sizeSelected === "") {
+        alert("Please select size and color!");
+    } else {
+        addToCart(id, name, price);
+    }
+}
+
 function disableButton(flag) {
     if (flag == true) {
         document.getElementById("minusButton").disabled = true;
@@ -158,3 +168,8 @@ function disableButton(flag) {
         document.getElementById("quantityUpdate").disabled = false;
     }
 }
+function redirectToCart() {
+    window.location.href = "/littleshop/cart";
+}
+
+   

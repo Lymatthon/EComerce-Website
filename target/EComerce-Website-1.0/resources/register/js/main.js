@@ -1,3 +1,4 @@
+// main register
 (function ($) {
 
     $(".toggle-password").click(function () {
@@ -84,7 +85,7 @@ const checkGender = () => {
         flag = true;
     }
     if (!flag) {
-        showErrorGender(genderEl, 'Gender cannot be blank.');
+        showErrorGender(genderEl, 'Gender cannot be blank!');
     } else {
         showSuccessGender(genderEl);
         valid = true;
@@ -92,30 +93,6 @@ const checkGender = () => {
     console.log(valid);
     return valid;
 };
-
-
-
-
-
-//const checkAddress = () => {
-//
-//    let valid = false;
-//
-//    const min = 5,
-//            max = 100;
-//
-//    const address = addressEl.value.trim();
-//
-//    if (!isRequired(address)) {
-//        showError(addressEl, 'Address cannot be blank.');
-//    } else if (!isBetween(address.length, min, max)) {
-//        showError(addressEl, `Address must be between ${min} and ${max} characters.`);
-//    } else {
-//        showSuccess(addressEl);
-//        valid = true;
-//    }
-//    return valid;
-//};
 
 
 const checkEmail = () => {
@@ -139,7 +116,7 @@ const checkPassword = () => {
     const password = passwordEl.value.trim();
 
     if (!isRequired(password)) {
-        showError(passwordEl, 'Password cannot be blank.');
+        showError(passwordEl, 'Password cannot be blank!');
     } else if (!isPasswordSecure(password)) {
         showError(passwordEl, 'Password must has at least 8 characters that include at least 1 lowercase character, 1 uppercase characters, 1 number, and 1 special character in (!@#$%^&*)');
     } else {

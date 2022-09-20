@@ -129,7 +129,7 @@
                                 <div><div><a href="#" onclick="validateOnAddCart(${product.productId}, `${product.productName}`,${product.price})"><img src="<c:url value="/resources/images/cart.svg" />" class="svg" alt=""></a><div>+</div></div></div>
                             </div>
                             <div class="product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
-                                <div class=button button_continue trans_200"><a style="text-decoration: none; color: white" href="/littleshop/cart" onclick="validateOnAddCart(${product.productId}, `${product.productName}`,${product.price})">Buy Now</a></div>
+                                <div class=button button_continue trans_200"><a style="text-decoration: none; color: white" href="/littleshop/cart" onclick="validateOnSubmit(${product.productId}, `${product.productName}`,${product.price});redirectToCart();">Buy Now</a></div>
                             </div>
                         </div>
                     </div>

@@ -8,6 +8,8 @@ import com.mycompany.spring_mvc_project_final.entities.ProductDetail;
 import com.mycompany.spring_mvc_project_final.repository.ProductDetailsRepository;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -84,5 +86,15 @@ public class ProductDetailsService {
     public ProductDetail getPDsByProductIdAndColorAndSize(Long productId, Long colorId, Long sizeId) {
         return pDetailsRepo.findPDsByProductIdAndColorIdAndSizeId(productId, colorId, sizeId);
         
+    }
+    
+    @Transactional
+    public ProductDetail getProductDetailsById(Long pId) {
+        Optional<ProductDetail> productDs = pDetailsRepo.findById(pId);
+        if (productDs.isPresent()) {
+            ProductDetail p = productDs.get();            
+            return p;
+        }
+        return new ProductDetail();
     }
 }

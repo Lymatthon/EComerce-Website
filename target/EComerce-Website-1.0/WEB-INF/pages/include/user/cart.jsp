@@ -26,12 +26,12 @@
                         <!-- Cart Bar -->
                         <div class="cart_bar">
                             <ul class="cart_bar_list item_list d-flex flex-row align-items-center justify-content-end">
-                                <li class="mr-auto">Product</li>
-                                <li>Size</li>
-                                <li>Color</li>
-                                <li>Price</li>
-                                <li>Quantity</li>
-                                <li></li>
+                                <li style="font-weight: bold; font-size: 18px" class="mr-auto">Product</li>
+                                <li style="font-weight: bold; font-size: 18px">Size</li>
+                                <li style="font-weight: bold; font-size: 18px">Color</li>
+                                <li style="font-weight: bold; font-size: 18px">Price</li>
+                                <li style="font-weight: bold; font-size: 18px">Quantity</li>
+                                <li style="font-weight: bold; font-size: 18px">Action</li>
                             </ul>
                         </div>
 

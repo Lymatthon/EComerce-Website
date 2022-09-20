@@ -7,14 +7,17 @@ import com.mycompany.spring_mvc_project_final.entities.CartDTO;
 import com.mycompany.spring_mvc_project_final.entities.Color;
 import com.mycompany.spring_mvc_project_final.entities.OrderEntity;
 import com.mycompany.spring_mvc_project_final.entities.PaymentDetailsDTO;
+import com.mycompany.spring_mvc_project_final.entities.ProductDetail;
 import com.mycompany.spring_mvc_project_final.entities.SizeEntity;
 import com.mycompany.spring_mvc_project_final.enums.OrderStatus;
 import com.mycompany.spring_mvc_project_final.enums.PaymentStatus;
+import com.mycompany.spring_mvc_project_final.repository.ProductDetailsRepository;
 import com.mycompany.spring_mvc_project_final.service.AccountBankingService;
 import com.mycompany.spring_mvc_project_final.service.AccountService;
 import com.mycompany.spring_mvc_project_final.service.ColorService;
 import com.mycompany.spring_mvc_project_final.service.OrderService;
 import com.mycompany.spring_mvc_project_final.service.PaymentService;
+import com.mycompany.spring_mvc_project_final.service.ProductDetailsService;
 import com.mycompany.spring_mvc_project_final.service.SizeService;
 import com.mycompany.spring_mvc_project_final.utils.Utils;
 import java.util.List;
@@ -54,6 +57,12 @@ public class CartController {
     
     @Autowired
     AccountService accountService;
+    
+    @Autowired
+    ProductDetailsService pDService;
+    
+    @Autowired
+    ProductDetailsRepository pDRepo;
 
     @GetMapping(value = "/cart")
     public String viewCart(Model model, HttpSession session) {
@@ -124,6 +133,8 @@ public class CartController {
     @PostMapping(value = "/user/pay")
     @Transactional
     public String payOrder(HttpSession session, @ModelAttribute(value = "paymentDetails") PaymentDetailsDTO pDetailsDTO, Model model) {
+        Map<Long, CartDTO> cart = (Map<Long, CartDTO>) session.getAttribute("cart");
+        
         List<AccountBanking> acountList = accountbankingS.getListAccBanking();
         Account account = (Account) session.getAttribute("currentUser");
         AccountDTO accountDTO = (AccountDTO) session.getAttribute("accountDTO");
@@ -136,22 +147,23 @@ public class CartController {
                     Double balanceAfterPay = accbanking.getBalance() - Double.parseDouble(pDetailsDTO.getAmount());
                     accbanking.setBalance(balanceAfterPay);
                     accountbankingS.saveAccountBanking(accbanking);
-                    OrderEntity orderEntity = orderService.saveReceipt((Map<Long, CartDTO>) session.getAttribute("cart"), account, OrderStatus.Completed, accountDTO);
+                    OrderEntity orderEntity = orderService.saveReceipt(cart, account, OrderStatus.Completed, accountDTO);
                     if (orderEntity != null) {
                         paymentService.savePayment(Double.parseDouble(pDetailsDTO.getAmount()), accbanking, orderEntity, PaymentStatus.Completed);
+                        minusQuantityPDs(cart);
                         error = false;
                         message = "Your order has been successfully placed!";
-                        sendEmail("lethitrucly1920@gmail.com", "thebrokebrandon@gmail.com", "Your order has been place successful!", message);
+//                        sendEmail("lethitrucly1920@gmail.com", "thebrokebrandon@gmail.com", "Your order has been place successful!", message);
                     }
                 } else if (accbanking.getBalance() < Double.parseDouble(pDetailsDTO.getAmount())) {
-                    orderService.saveReceipt((Map<Long, CartDTO>) session.getAttribute("cart"), account, OrderStatus.Failed, accountDTO);
+                    orderService.saveReceipt(cart, account, OrderStatus.Failed, accountDTO);
                     error = true;
                     message = "Your account is not enough to pay!";
                 }
             }
         }
         if (message.isEmpty()) {
-            orderService.saveReceipt((Map<Long, CartDTO>) session.getAttribute("cart"), account, OrderStatus.Failed, accountDTO);
+            orderService.saveReceipt(cart, account, OrderStatus.Failed, accountDTO);
             message = "Invalid Card!";
         }
         session.removeAttribute("cart");
@@ -181,6 +193,20 @@ public class CartController {
         mailMessage.setSubject(subject);
         mailMessage.setText(content);
         mailsender.send(mailMessage);
+    }
+    
+    public void minusQuantityPDs(Map<Long, CartDTO> cart){
+        Long idPDs = 0L;
+        ProductDetail newPDs = new ProductDetail();
+        
+        for(CartDTO c : cart.values()){
+            idPDs= c.getpDId();
+            newPDs = pDService.getProductDetailsById(idPDs);
+            int quantity = (newPDs.getQuantity() - c.getQuantity());
+            newPDs.setQuantity(quantity);
+            pDRepo.save(newPDs);
+        }
+        
     }
 
 }

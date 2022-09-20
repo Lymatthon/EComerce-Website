@@ -7,6 +7,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Little Closet</title>
         <jsp:include page="/WEB-INF/pages/include/user/css-page-cart.jsp" />
+        
     </head>
 
     <body>
@@ -17,7 +18,7 @@
             <jsp:include page="/WEB-INF/pages/include/user/header.jsp"/>
             <div class="super_container_inner">
                 <div class="super_overlay"></div>
-                
+
                 <!-- Cart -->                                           
                 <jsp:include page="/WEB-INF/pages/include/user/cart.jsp"/>
 
@@ -27,6 +28,7 @@
         </div>
 
         <jsp:include page="/WEB-INF/pages/include/user/js-page-cart.jsp"/>
+
     </body>
 
 </html>

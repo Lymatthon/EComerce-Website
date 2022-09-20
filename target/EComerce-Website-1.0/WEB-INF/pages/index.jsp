@@ -10,8 +10,6 @@
     </head>
 
     <body>
-        <!-- Top menu --> 
-        
 
         <div class="super_container">
             <jsp:include page="include/user/header.jsp"/>
@@ -19,7 +17,7 @@
                 <div class="super_overlay"></div>
                 <!-- slider -->
                 <jsp:include page="include/user/slider.jsp"/>
-                
+
                 <!-- Products -->                                           
                 <jsp:include page="include/user/product-list-all.jsp"/>
 
